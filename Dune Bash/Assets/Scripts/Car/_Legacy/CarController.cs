@@ -1,4 +1,7 @@
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 [RequireComponent(typeof(Rigidbody))]
 public class CarController : MonoBehaviour
@@ -47,11 +50,11 @@ public class CarController : MonoBehaviour
     [Range(0f, 1f)] public float handbrakeRearGripMultiplier = 0.35f;
 
     [Header("Suspension (soft, long-travel for dune bumps)")]
-    public float suspensionDistance = 0.34f;
+    public float suspensionDistance = 0.4f;
     public float suspensionSpring = 38000f;
     public float suspensionDamper = 4200f;
     [Range(0f, 1f)] public float suspensionTargetPosition = 0.5f;
-    public float wheelMass = 20f;
+    public float wheelMass = 25f;
 
     [Header("Tire Grip (sand-tuned friction curves)")]
     [Tooltip("Applied to all four wheels' forward/sideways friction curves on Awake.")]
@@ -67,21 +70,21 @@ public class CarController : MonoBehaviour
     public float sidewaysStiffness = 1.5f;
 
     [Header("Stability")]
-    public Vector3 centerOfMassOffset = new Vector3(0f, -0.55f, 0f);
+    public Vector3 centerOfMassOffset = new Vector3(0f, -0.4f, 0f);
     [Tooltip("Extra downward force scaled by forward speed - keeps the car planted at speed.")]
-    public float downforce = 12f;
+    public float downforce = 9f;
     [Tooltip("Anti-roll bar stiffness, front axle. Resists body roll / wheel lift on uneven dunes.")]
     public float antiRollFront = 12000f;
     [Tooltip("Anti-roll bar stiffness, rear axle.")]
     public float antiRollRear = 12000f;
     [Tooltip("Extra downward acceleration (m/s^2) added on top of Physics.gravity, for a punchier arcade jump arc.")]
-    public float extraGravity = 4f;
+    public float extraGravity = 3f;
 
     [Header("Air Control (save the flip)")]
-    public float airPitchTorque = 5.5f;
-    public float airRollTorque = 6.5f;
+    public float airPitchTorque = 4f;
+    public float airRollTorque = 5f;
     [Tooltip("Damps angular velocity while airborne so spins don't run away.")]
-    public float airAngularDrag = 0.6f;
+    public float airAngularDrag = 0.8f;
 
     [Header("Nitro Boost")]
     public float boostForce = 9000f;
@@ -308,5 +311,83 @@ public class CarController : MonoBehaviour
         Quaternion rot;
         wc.GetWorldPose(out pos, out rot);
         mesh.SetPositionAndRotation(pos, rot);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Rigidbody gizmoRb = rb != null ? rb : GetComponent<Rigidbody>();
+        if (gizmoRb != null)
+        {
+            Vector3 comWorld = transform.TransformPoint(centerOfMassOffset);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(comWorld, 0.1f);
+#if UNITY_EDITOR
+            Handles.color = Color.yellow;
+            Handles.Label(comWorld + Vector3.up * 0.15f, "Center of Mass");
+#endif
+        }
+
+        DrawWheelGizmo(wheelColliderFL, "FL");
+        DrawWheelGizmo(wheelColliderFR, "FR");
+        DrawWheelGizmo(wheelColliderRL, "RL");
+        DrawWheelGizmo(wheelColliderRR, "RR");
+
+        Gizmos.color = Color.cyan;
+        DrawAntiRollLink(wheelColliderFL, wheelColliderFR);
+        DrawAntiRollLink(wheelColliderRL, wheelColliderRR);
+    }
+
+    void DrawWheelGizmo(WheelCollider wc, string label)
+    {
+        if (wc == null) return;
+
+        Vector3 axlePos = wc.transform.position;
+        Vector3 up = wc.transform.up;
+        Vector3 axle = wc.transform.right;
+
+        // Wheel radius, as seen from the side (facing the axle axis).
+        Gizmos.color = Color.green;
+        DrawWireCircle(axlePos, axle, wc.radius);
+
+        // Suspension travel: axlePos is full droop, compresses upward by suspensionDistance.
+        Vector3 compressedTop = axlePos + up * wc.suspensionDistance;
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(axlePos, compressedTop);
+        Gizmos.DrawWireSphere(compressedTop, 0.04f);
+
+        // Live suspension compression + ground contact while playing.
+        WheelHit hit;
+        if (Application.isPlaying && wc.GetGroundHit(out hit))
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireSphere(hit.point, 0.06f);
+        }
+
+#if UNITY_EDITOR
+        Handles.color = Color.white;
+        Handles.Label(axlePos + Vector3.up * (wc.radius + 0.1f), label);
+#endif
+    }
+
+    void DrawAntiRollLink(WheelCollider a, WheelCollider b)
+    {
+        if (a == null || b == null) return;
+        Gizmos.DrawLine(a.transform.position, b.transform.position);
+    }
+
+    static void DrawWireCircle(Vector3 center, Vector3 normal, float radius, int segments = 24)
+    {
+        normal.Normalize();
+        Vector3 tangent = Vector3.Cross(normal, Mathf.Abs(Vector3.Dot(normal, Vector3.up)) < 0.99f ? Vector3.up : Vector3.right).normalized;
+        Vector3 bitangent = Vector3.Cross(normal, tangent);
+
+        Vector3 prev = center + tangent * radius;
+        for (int i = 1; i <= segments; i++)
+        {
+            float t = (i / (float)segments) * Mathf.PI * 2f;
+            Vector3 next = center + (tangent * Mathf.Cos(t) + bitangent * Mathf.Sin(t)) * radius;
+            Gizmos.DrawLine(prev, next);
+            prev = next;
+        }
     }
 }

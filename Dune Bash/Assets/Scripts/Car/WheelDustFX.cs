@@ -9,10 +9,13 @@ public class WheelDustFX : MonoBehaviour
     [System.Serializable]
     public struct WheelDust
     {
+        [Tooltip("The physics wheel this dust emitter reads slip/rpm/ground-contact from.")]
         public WheelCollider wheel;
+        [Tooltip("Particle system positioned at this wheel's contact patch - emission rate and bursts are driven entirely at runtime, not authored here.")]
         public ParticleSystem dust;
     }
 
+    [Tooltip("One entry per wheel, pairing its WheelCollider with the dust ParticleSystem to drive.")]
     public WheelDust[] wheels = new WheelDust[4];
 
     [Header("Slip Dust (spinning / drifting / lockup)")]
@@ -20,6 +23,7 @@ public class WheelDustFX : MonoBehaviour
     public float slipStartThreshold = 0.35f;
     [Tooltip("Combined slip at/above this produces maximum dust.")]
     public float slipFullThreshold = 1.4f;
+    [Tooltip("Particles emitted per second at maximum slip (t = 1 on the slip/rpm curve below).")]
     public float maxEmissionRate = 70f;
     [Tooltip("Extra emission contribution from the wheel's own spin speed (rpm) - so a stationary burnout still kicks up plenty of sand even though ground speed is ~0.")]
     public float rpmEmissionBoost = 0.4f;
@@ -29,7 +33,9 @@ public class WheelDustFX : MonoBehaviour
     public float landingImpactMinSpeed = 6f;
     [Tooltip("Vertical speed (m/s) at touchdown that produces a full-size burst.")]
     public float landingImpactMaxSpeed = 20f;
+    [Tooltip("Particle count for a landing burst right at Landing Impact Min Speed.")]
     public int landingBurstMinParticles = 8;
+    [Tooltip("Particle count for a landing burst at/above Landing Impact Max Speed.")]
     public int landingBurstMaxParticles = 40;
 
     bool[] wasGrounded;

@@ -53,6 +53,7 @@ public static class BuildCarSetup
         DropCarOntoGround(car);
 
         SetUpCamera(car);
+        SetUpSpeedometer(car);
 
         scene = EditorSceneManager.GetActiveScene();
         EditorSceneManager.MarkSceneDirty(scene);
@@ -270,7 +271,7 @@ public static class BuildCarSetup
         }
 
         // --- wheel visuals ---
-        // CarController repositions these every frame via WheelCollider.GetWorldPose(), which sets
+        // VehicleDriveTrain repositions these every frame via WheelCollider.GetWorldPose(), which sets
         // *world* position/rotation directly - that would stomp a local axis-correction rotation applied
         // straight to the mesh. So each wheel is a pivot (driven by the physics pose every frame) with the
         // actual cylinder mesh as a child carrying a fixed local rotation to turn its default Y-axis into
@@ -295,16 +296,12 @@ public static class BuildCarSetup
             visuals[i] = pivot.transform;
         }
 
-        CarController controller = root.AddComponent<CarController>();
-        controller.wheelColliderFL = colliders[0];
-        controller.wheelColliderFR = colliders[1];
-        controller.wheelColliderRL = colliders[2];
-        controller.wheelColliderRR = colliders[3];
-        controller.wheelMeshFL = visuals[0];
-        controller.wheelMeshFR = visuals[1];
-        controller.wheelMeshRL = visuals[2];
-        controller.wheelMeshRR = visuals[3];
-        controller.ApplyTuning();
+        VehicleDriveTrain driveTrain = root.AddComponent<VehicleDriveTrain>();
+        driveTrain.wheels = new Transform[] { colliders[0].transform, colliders[1].transform, colliders[2].transform, colliders[3].transform };
+        driveTrain.wheelMeshes = visuals;
+
+        PlayerVehicleInput playerInput = root.AddComponent<PlayerVehicleInput>();
+        playerInput.driveTrain = driveTrain;
 
         // --- wheel dust ---
         Material dustMat = GetOrCreateSandDustMaterial();
@@ -462,19 +459,60 @@ public static class BuildCarSetup
             cam = camGo.AddComponent<Camera>();
         }
 
-        CarCamera carCam = cam.GetComponent<CarCamera>();
-        if (carCam == null) carCam = cam.gameObject.AddComponent<CarCamera>();
+        GameObjectUtility.RemoveMonoBehavioursWithMissingScript(cam.gameObject);
 
-        carCam.target = car.transform;
-        carCam.targetBody = car.GetComponent<Rigidbody>();
-        carCam.targetCar = car.GetComponent<CarController>();
+        PlayerCamera playerCam = cam.GetComponent<PlayerCamera>();
+        if (playerCam == null) playerCam = cam.gameObject.AddComponent<PlayerCamera>();
 
-        Vector3 startPos = car.transform.position - car.transform.forward * carCam.baseDistance + Vector3.up * carCam.baseHeight;
+        playerCam.target = car.transform;
+        playerCam.targetBody = car.GetComponent<Rigidbody>();
+        playerCam.targetDriveTrain = car.GetComponent<VehicleDriveTrain>();
+
+        Vector3 startPos = car.transform.position - car.transform.forward * playerCam.distance + Vector3.up * playerCam.height;
         cam.transform.position = startPos;
-        cam.transform.LookAt(car.transform.position + Vector3.up * carCam.lookHeight);
-        cam.fieldOfView = carCam.baseFov;
+        cam.transform.LookAt(car.transform.position + Vector3.up * playerCam.lookHeight);
+        cam.fieldOfView = playerCam.baseFov;
         cam.nearClipPlane = 0.1f;
         cam.farClipPlane = 2000f;
+    }
+
+    static void SetUpSpeedometer(GameObject car)
+    {
+        GameObject canvasGo = GameObject.Find("HUD Canvas");
+        if (canvasGo == null)
+        {
+            canvasGo = new GameObject("HUD Canvas");
+            Canvas canvas = canvasGo.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            UnityEngine.UI.CanvasScaler scaler = canvasGo.AddComponent<UnityEngine.UI.CanvasScaler>();
+            scaler.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1920, 1080);
+            canvasGo.AddComponent<UnityEngine.UI.GraphicRaycaster>();
+        }
+
+        GameObject textGo = canvasGo.transform.Find("SpeedText")?.gameObject;
+        if (textGo == null)
+        {
+            textGo = new GameObject("SpeedText");
+            textGo.transform.SetParent(canvasGo.transform, false);
+            UnityEngine.UI.Text text = textGo.AddComponent<UnityEngine.UI.Text>();
+            text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            text.fontSize = 42;
+            text.alignment = TextAnchor.LowerRight;
+            text.color = Color.white;
+
+            RectTransform rect = textGo.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(1, 0);
+            rect.anchorMax = new Vector2(1, 0);
+            rect.pivot = new Vector2(1, 0);
+            rect.anchoredPosition = new Vector2(-40, 40);
+            rect.sizeDelta = new Vector2(300, 60);
+        }
+
+        SpeedometerUI speedo = canvasGo.GetComponent<SpeedometerUI>();
+        if (speedo == null) speedo = canvasGo.AddComponent<SpeedometerUI>();
+        speedo.driveTrain = car.GetComponent<VehicleDriveTrain>();
+        speedo.speedText = textGo.GetComponent<UnityEngine.UI.Text>();
     }
 
     static void CaptureVerificationShots(GameObject car)
