@@ -35,7 +35,7 @@ public class PlayerCamera : MonoBehaviour
     public float fovDamping = 4f;
 
     [Header("Boost Feel")]
-    [Tooltip("Optional - the vehicle's drive train, used only to detect BoostInput for the FOV kick and jitter below. Leave unassigned to disable both.")]
+    [Tooltip("Optional - the vehicle's drive train, used only to detect actual boosting (input held AND fuel remaining) for the FOV kick and jitter below. Leave unassigned to disable both.")]
     public VehicleDriveTrain targetDriveTrain;
     [Tooltip("Extra field of view (degrees) added on top of the speed-based FOV while boosting.")]
     public float boostFovKick = 8f;
@@ -127,7 +127,7 @@ public class PlayerCamera : MonoBehaviour
         }
         lastSpeed = speed;
 
-        bool isBoosting = targetDriveTrain != null && targetDriveTrain.BoostInput;
+        bool isBoosting = targetDriveTrain != null && targetDriveTrain.IsBoosting;
         if (isBoosting)
         {
             float boostSpeedRatio = Mathf.Clamp01(speed / Mathf.Max(0.01f, targetDriveTrain.boostTopSpeed / 2));

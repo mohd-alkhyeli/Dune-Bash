@@ -38,10 +38,20 @@ public class VehicleDriveTrain : MonoBehaviour
     public Vector3 centerOfMassOffset;
 
     [Header("Arcade Feel")]
-    [Tooltip("Engine power is multiplied by this while BoostInput is true.")]
+    [Tooltip("Engine power is multiplied by this while boosting.")]
     public float boostMultiplier = 1.6f;
     [Tooltip("Rear wheels' (index 2+) sideways grip is multiplied by this while HandbrakeInput is true, letting the tail slide out for arcade drifts.")]
     [Range(0f, 1f)] public float handbrakeRearGripMultiplier = 0.3f;
+
+    [Header("Boost Fuel")]
+    [Tooltip("Maximum boost fuel, in seconds of continuous boost at Boost Drain Rate. Starts full.")]
+    public float maxBoostFuel = 3f;
+    [Tooltip("Boost fuel drained per second while boosting.")]
+    public float boostDrainRate = 1f;
+    [Tooltip("Boost fuel gained per second while airborne - rewards jumps rather than just holding throttle.")]
+    public float airTimeBoostGainRate = 0.6f;
+    [Tooltip("Boost fuel gained per second while drifting (HandbrakeInput held and grounded) - rewards sliding through corners instead of driving straight.")]
+    public float driftBoostGainRate = 0.5f;
 
     [Header("Stability - Anti-Roll")]
     [Tooltip("Anti-roll bar stiffness for the front axle (wheels 0/1). Resists body roll by pushing down on the wheel with more suspension travel - real suspension physics, not an artificial correction. Raise this if the vehicle tips over in hard corners.")]
@@ -69,6 +79,12 @@ public class VehicleDriveTrain : MonoBehaviour
     public bool HandbrakeInput { get; set; }
     public float SpeedKmh { get; private set; }
     public bool IsGrounded { get; private set; }
+    /// <summary>Remaining boost fuel, in the same seconds-of-boost unit as Max Boost Fuel.</summary>
+    public float BoostFuel { get; private set; }
+    /// <summary>Remaining boost fuel normalized to 0-1, for UI meters.</summary>
+    public float BoostFuel01 => maxBoostFuel > 0f ? Mathf.Clamp01(BoostFuel / maxBoostFuel) : 0f;
+    /// <summary>True only while boost is actually being applied - BoostInput held AND fuel remaining.</summary>
+    public bool IsBoosting { get; private set; }
 
     Rigidbody rb;
     float currentTurnAngle;
@@ -80,6 +96,7 @@ public class VehicleDriveTrain : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass = centerOfMassOffset;
         ApplySuspensionCompensation();
+        BoostFuel = maxBoostFuel;
     }
 
     void FixedUpdate()
@@ -91,12 +108,15 @@ public class VehicleDriveTrain : MonoBehaviour
         SpeedKmh = rb.linearVelocity.magnitude * 3.6f;
         UpdateGroundedState();
 
+        IsBoosting = BoostInput && BoostFuel > 0f;
+        UpdateBoostFuel();
+
         float targetTurnAngle = Mathf.Clamp(SteerInput, -1f, 1f) * turnSpeed;
         currentTurnAngle = Mathf.Lerp(currentTurnAngle, targetTurnAngle, Time.deltaTime * turnSmoothness);
 
         float throttle = Mathf.Clamp(ThrottleInput, -1f, 1f);
-        float power = enginePower * (BoostInput ? boostMultiplier : 1f);
-        float curTopSpeed = BoostInput ? boostTopSpeed : topSpeed;
+        float power = enginePower * (IsBoosting ? boostMultiplier : 1f);
+        float curTopSpeed = IsBoosting ? boostTopSpeed : topSpeed;
         float forwardSpeed = Vector3.Dot(rb.linearVelocity, transform.forward);
         float speedRatio = Mathf.Clamp01(Mathf.Abs(forwardSpeed) / Mathf.Max(0.01f, curTopSpeed));
 
@@ -172,6 +192,22 @@ public class VehicleDriveTrain : MonoBehaviour
             spring.damper *= springScale;
             wc.suspensionSpring = spring;
         }
+    }
+
+    void UpdateBoostFuel()
+    {
+        if (IsBoosting)
+        {
+            BoostFuel -= boostDrainRate * Time.fixedDeltaTime;
+        }
+        else
+        {
+            // Airborne and drifting are mutually exclusive (drifting needs grounded wheels to slide),
+            // so only one gain rate ever applies at a time.
+            float gain = !IsGrounded ? airTimeBoostGainRate : (HandbrakeInput ? driftBoostGainRate : 0f);
+            BoostFuel += gain * Time.fixedDeltaTime;
+        }
+        BoostFuel = Mathf.Clamp(BoostFuel, 0f, maxBoostFuel);
     }
 
     void UpdateGroundedState()

@@ -5216,7 +5216,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3728516780968448047}
@@ -5251,7 +5251,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2744185121142301980}
@@ -10531,6 +10531,8 @@ GameObject:
   - component: {fileID: 1583225748741454104}
   - component: {fileID: 449952863098076142}
   - component: {fileID: 7409243870853070690}
+  - component: {fileID: 8505129557638694847}
+  - component: {fileID: 8660743139292160064}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -10618,8 +10620,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VehicleDriveTrain
   enginePower: 2000
-  topSpeed: 30
-  boostTopSpeed: 42
+  topSpeed: 35
+  boostTopSpeed: 40
   turnSpeed: 25
   turnSmoothness: 5
   brakeTorque: 4000
@@ -10634,11 +10636,20 @@ MonoBehaviour:
   - {fileID: 8009403704031089361}
   - {fileID: 8973998008007851478}
   - {fileID: 7023269116793800981}
-  centerOfMassOffset: {x: 0, y: 0, z: 0}
-  boostMultiplier: 1.6
+  centerOfMassOffset: {x: 0, y: 0.5, z: 0}
+  boostMultiplier: 3.5
   handbrakeRearGripMultiplier: 0.3
-  antiRollFront: 12000
-  antiRollRear: 12000
+  maxBoostFuel: 3
+  boostDrainRate: 1
+  airTimeBoostGainRate: 0.4
+  driftBoostGainRate: 0.7
+  antiRollFront: 9000
+  antiRollRear: 9000
+  extraGravity: 2
+  suspensionCompensation: 0.5
+  airPitchTorque: 4
+  airRollTorque: 5
+  airAngularDrag: 0.8
 --- !u!114 &449952863098076142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10671,22 +10682,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WheelDustFX
   wheels:
-  - wheel: {fileID: 8496279821885874635}
-    dust: {fileID: 1088011853557541120}
-  - wheel: {fileID: 6638419512954785963}
-    dust: {fileID: 2194945054061886118}
-  - wheel: {fileID: 9113776759385558370}
-    dust: {fileID: 9200692870203599632}
-  - wheel: {fileID: 6496040938929263250}
-    dust: {fileID: 1875737267353768726}
-  slipStartThreshold: 0.35
-  slipFullThreshold: 1.4
+  - wheel: {fileID: 0}
+    dust: {fileID: 0}
+  - wheel: {fileID: 0}
+    dust: {fileID: 0}
+  - wheel: {fileID: 0}
+    dust: {fileID: 0}
+  - wheel: {fileID: 0}
+    dust: {fileID: 0}
+  slipStartThreshold: 0.1
+  slipFullThreshold: 1
   maxEmissionRate: 70
   rpmEmissionBoost: 0.4
   landingImpactMinSpeed: 6
   landingImpactMaxSpeed: 20
   landingBurstMinParticles: 8
   landingBurstMaxParticles: 40
+--- !u!114 &8505129557638694847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578446285851153817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 807ee62a65db33c4d896e7ce7f5ff2cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LapTracker
+  startCheckpoint: {fileID: 0}
+  lapsToWin: 3
+--- !u!114 &8660743139292160064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578446285851153817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ee9645124fd0a438116b10762463a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleFlipDetector
+  flippedUpDotThreshold: 0.2
+  flippedDuration: 3
+  debugFlipKey: 27
+  debugFlipTorque: 6000
 --- !u!1 &2801073910262797052
 GameObject:
   m_ObjectHideFlags: 0

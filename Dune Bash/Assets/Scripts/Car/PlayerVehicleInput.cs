@@ -33,4 +33,16 @@ public class PlayerVehicleInput : MonoBehaviour
         driveTrain.BoostInput = Input.GetKey(boostKey);
         driveTrain.HandbrakeInput = Input.GetKey(handbrakeKey);
     }
+
+    /// <summary>Stops responding to input and zeroes the drive train's inputs - used to abandon a car on respawn so it doesn't sit there flooring the throttle.</summary>
+    public void ReleaseControl()
+    {
+        enabled = false;
+        if (driveTrain == null) return;
+
+        driveTrain.ThrottleInput = 0f;
+        driveTrain.SteerInput = 0f;
+        driveTrain.BoostInput = false;
+        driveTrain.HandbrakeInput = false;
+    }
 }
