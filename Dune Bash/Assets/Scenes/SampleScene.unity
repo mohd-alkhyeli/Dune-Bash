@@ -395,6 +395,8 @@ MonoBehaviour:
   nextCheckpoints:
   - {fileID: 720581950}
   trackProgress: 3
+  spawnPointOverride: {fileID: 0}
+  autoSpawnSideOffset: 6
 --- !u!65 &29670825
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2110,8 +2112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a5f09fd432f8c5498b265a44ff2c4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCamera
-  target: {fileID: 2752942489393570574}
-  targetBody: {fileID: 2752942489393570575}
+  target: {fileID: 0}
+  targetBody: {fileID: 0}
   distance: 8
   height: 3.5
   followDamping: 8
@@ -2122,7 +2124,7 @@ MonoBehaviour:
   maxFov: 80
   fovSpeedForMax: 30
   fovDamping: 4
-  targetDriveTrain: {fileID: 2752942489393570573}
+  targetDriveTrain: {fileID: 0}
   boostFovKick: 16
   boostShakeStrength: 0.1
   shakeSpeedLossThreshold: 8
@@ -3562,6 +3564,8 @@ MonoBehaviour:
   nextCheckpoints:
   - {fileID: 1630697921}
   trackProgress: 7
+  spawnPointOverride: {fileID: 0}
+  autoSpawnSideOffset: 6
 --- !u!65 &508995911
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3879,6 +3883,8 @@ MonoBehaviour:
   nextCheckpoints:
   - {fileID: 1851419519}
   trackProgress: 10
+  spawnPointOverride: {fileID: 0}
+  autoSpawnSideOffset: 6
 --- !u!65 &528032189
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4315,11 +4321,6 @@ Transform:
   - {fileID: 1255660184}
   m_Father: {fileID: 1098576214}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &582376019 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2578446285851153817, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-  m_PrefabInstance: {fileID: 2752942489393570572}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &614406487
 GameObject:
   m_ObjectHideFlags: 0
@@ -4951,6 +4952,8 @@ MonoBehaviour:
   nextCheckpoints:
   - {fileID: 1484630924}
   trackProgress: 4
+  spawnPointOverride: {fileID: 0}
+  autoSpawnSideOffset: 6
 --- !u!65 &720581951
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6568,6 +6571,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3, y: 15, z: 23.261992}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &982798598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 982798599}
+  m_Layer: 0
+  m_Name: Initial Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &982798599
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982798598}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.026060643, y: 0.7043436, z: 0.025892854, w: 0.708908}
+  m_LocalPosition: {x: -10.645512, y: 4.2331476, z: -221.16006}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &985726537
 GameObject:
   m_ObjectHideFlags: 0
@@ -8352,6 +8386,8 @@ MonoBehaviour:
   nextCheckpoints:
   - {fileID: 508995910}
   trackProgress: 6
+  spawnPointOverride: {fileID: 0}
+  autoSpawnSideOffset: 6
 --- !u!65 &1215578054
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9849,6 +9885,60 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3, y: 15, z: 26.936392}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1414983550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1414983552}
+  - component: {fileID: 1414983551}
+  m_Layer: 0
+  m_Name: CarSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1414983551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414983550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec2ab77fbbd2554ab09fffe79c9ef85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarSpawner
+  carPrefab: {fileID: 2578446285851153817, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
+  playerCamera: {fileID: 330585549}
+  speedometerUI: {fileID: 1732143005}
+  boostMeterUI: {fileID: 2029140614}
+  lapCounterUI: {fileID: 1732143010}
+  startCheckpoint: {fileID: 508995910}
+  terrainCollider: {fileID: 901206781}
+  terrainSearchHeight: 200
+  spawnHeightOffset: 1.2
+  initialSpawnPoint: {fileID: 982798599}
+--- !u!4 &1414983552
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414983550}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.58624, y: 5.08981, z: -221.15985}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1418209267
 GameObject:
   m_ObjectHideFlags: 0
@@ -10359,6 +10449,8 @@ MonoBehaviour:
   nextCheckpoints:
   - {fileID: 1215578053}
   trackProgress: 5
+  spawnPointOverride: {fileID: 0}
+  autoSpawnSideOffset: 6
 --- !u!65 &1484630925
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11041,6 +11133,8 @@ MonoBehaviour:
   nextCheckpoints:
   - {fileID: 1747400773}
   trackProgress: 1
+  spawnPointOverride: {fileID: 0}
+  autoSpawnSideOffset: 6
 --- !u!65 &1563686714
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11412,6 +11506,8 @@ MonoBehaviour:
   nextCheckpoints:
   - {fileID: 1778334934}
   trackProgress: 8
+  spawnPointOverride: {fileID: 0}
+  autoSpawnSideOffset: 6
 --- !u!65 &1630697922
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12041,7 +12137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5c83b68682db84d8ca2e143e767237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpeedometerUI
-  driveTrain: {fileID: 2752942489393570573}
+  driveTrain: {fileID: 0}
   speedText: {fileID: 1234558206}
   decimalPlaces: 0
 --- !u!114 &1732143006
@@ -12143,7 +12239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9df721ba104f64e8a91c5de836e3a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LapCounterUI
-  lapTracker: {fileID: 2752942489393570579}
+  lapTracker: {fileID: 0}
   lapText: {fileID: 1178317415}
   placeText: {fileID: 566125481}
   winText: {fileID: 1759363984}
@@ -12180,6 +12276,8 @@ MonoBehaviour:
   nextCheckpoints:
   - {fileID: 29670824}
   trackProgress: 2
+  spawnPointOverride: {fileID: 0}
+  autoSpawnSideOffset: 6
 --- !u!65 &1747400774
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12914,6 +13012,8 @@ MonoBehaviour:
   nextCheckpoints:
   - {fileID: 528032188}
   trackProgress: 9
+  spawnPointOverride: {fileID: 0}
+  autoSpawnSideOffset: 6
 --- !u!65 &1778334935
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13195,6 +13295,8 @@ MonoBehaviour:
   nextCheckpoints:
   - {fileID: 1563686713}
   trackProgress: 0
+  spawnPointOverride: {fileID: 0}
+  autoSpawnSideOffset: 6
 --- !u!65 &1851419520
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14494,7 +14596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361b9c582a7b0e642855336e404bad45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoostMeterUI
-  driveTrain: {fileID: 2752942489393570573}
+  driveTrain: {fileID: 0}
   fillImage: {fileID: 1187390116}
 --- !u!114 &2029140615
 MonoBehaviour:
@@ -14864,7 +14966,6 @@ MonoBehaviour:
   gateWidth: 500
   gateHeight: 100
   gateDepth: 2
-  lapTracker: {fileID: 2752942489393570579}
 --- !u!4 &2090891126
 Transform:
   m_ObjectHideFlags: 0
@@ -15349,189 +15450,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3, y: 15, z: 18.351347}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1001 &2752942489393570572
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1583225748741454104, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: topSpeed
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 1583225748741454104, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: enginePower
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1583225748741454104, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: antiRollRear
-      value: 9000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1583225748741454104, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: extraGravity
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1583225748741454104, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: antiRollFront
-      value: 9000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1583225748741454104, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: boostTopSpeed
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 1583225748741454104, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: boostMultiplier
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1583225748741454104, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: driftBoostGainRate
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1583225748741454104, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: airTimeBoostGainRate
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1583225748741454104, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: centerOfMassOffset.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2578446285851153817, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: m_Name
-      value: Car
-      objectReference: {fileID: 0}
-    - target: {fileID: 4872994407393628547, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409243870853070690, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: slipFullThreshold
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409243870853070690, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: slipStartThreshold
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409243870853070690, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: wheels.Array.data[0].dust
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409243870853070690, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: wheels.Array.data[1].dust
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409243870853070690, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: wheels.Array.data[2].dust
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409243870853070690, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: wheels.Array.data[3].dust
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409243870853070690, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: wheels.Array.data[0].wheel
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409243870853070690, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: wheels.Array.data[1].wheel
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409243870853070690, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: wheels.Array.data[2].wheel
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409243870853070690, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: wheels.Array.data[3].wheel
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8944517221313413265, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 9034765082742883769, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -10.645512
-      objectReference: {fileID: 0}
-    - target: {fileID: 9034765082742883769, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.2331476
-      objectReference: {fileID: 0}
-    - target: {fileID: 9034765082742883769, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -221.16006
-      objectReference: {fileID: 0}
-    - target: {fileID: 9034765082742883769, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.708908
-      objectReference: {fileID: 0}
-    - target: {fileID: 9034765082742883769, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.026060643
-      objectReference: {fileID: 0}
-    - target: {fileID: 9034765082742883769, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7043436
-      objectReference: {fileID: 0}
-    - target: {fileID: 9034765082742883769, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.025892854
-      objectReference: {fileID: 0}
-    - target: {fileID: 9034765082742883769, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -4.211
-      objectReference: {fileID: 0}
-    - target: {fileID: 9034765082742883769, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 89.63
-      objectReference: {fileID: 0}
-    - target: {fileID: 9034765082742883769, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2578446285851153817, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2752942489393570579}
-  m_SourcePrefab: {fileID: 100100000, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
---- !u!114 &2752942489393570573 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1583225748741454104, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-  m_PrefabInstance: {fileID: 2752942489393570572}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 582376019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ee6c8b2c2d00464e951892f082eb0a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::VehicleDriveTrain
---- !u!4 &2752942489393570574 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9034765082742883769, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-  m_PrefabInstance: {fileID: 2752942489393570572}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &2752942489393570575 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 1805802856696002308, guid: 2a928739faf920d4f845e2f7d17033f7, type: 3}
-  m_PrefabInstance: {fileID: 2752942489393570572}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2752942489393570579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 582376019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 807ee62a65db33c4d896e7ce7f5ff2cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LapTracker
-  startCheckpoint: {fileID: 508995910}
-  lapsToWin: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -15539,8 +15457,9 @@ SceneRoots:
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
+  - {fileID: 1414983552}
   - {fileID: 1732143009}
   - {fileID: 2105403502}
   - {fileID: 2090891126}
   - {fileID: 744422914}
-  - {fileID: 2752942489393570572}
+  - {fileID: 982798599}
