@@ -7,6 +7,7 @@ using UnityEngine;
 /// buttons so the whole "place nodes, see the curve, rebuild" workflow stays in one place.
 /// </summary>
 [CustomEditor(typeof(FenceSpline))]
+[CanEditMultipleObjects]
 public class FenceSplineEditor : Editor
 {
     void OnSceneGUI()
@@ -43,18 +44,41 @@ public class FenceSplineEditor : Editor
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-        FenceSpline fence = (FenceSpline)target;
 
         EditorGUILayout.Space();
         using (new EditorGUILayout.HorizontalScope())
         {
-            if (GUILayout.Button("Add Node")) AddNode(fence);
-            if (GUILayout.Button("Remove Last Node")) RemoveLastNode(fence);
+            if (GUILayout.Button("Add Node")) ForEachFence(AddNode);
+            if (GUILayout.Button("Remove Last Node")) ForEachFence(RemoveLastNode);
         }
 
-        if (GUILayout.Button("Drop Nodes To Terrain")) DropNodesToTerrain(fence);
+        if (GUILayout.Button("Drop Nodes To Terrain")) ForEachFence(DropNodesToTerrain);
 
-        if (GUILayout.Button("Rebuild Fence")) fence.Rebuild();
+        if (GUILayout.Button("Rebuild Fence")) ForEachFence(f => f.Rebuild());
+    }
+
+    /// <summary>Runs an action on every selected FenceSpline, so the buttons work with multiple fences selected at once (e.g. an inner and outer boundary).</summary>
+    void ForEachFence(System.Action<FenceSpline> action)
+    {
+        foreach (Object t in targets)
+        {
+            FenceSpline fence = t as FenceSpline;
+            if (fence != null) action(fence);
+        }
+    }
+
+    /// <summary>
+    /// Rebuilds every FenceSpline in the open scene regardless of what's currently selected - a
+    /// guaranteed-to-work alternative to multi-selecting in the Inspector, since Unity's multi-object
+    /// editing can be inconsistent about which selected instance a button call actually reaches. Only
+    /// calls the existing Rebuild() on each one - node data is untouched either way.
+    /// </summary>
+    [MenuItem("Dune Bash/Rebuild All Fences")]
+    static void RebuildAllFences()
+    {
+        FenceSpline[] fences = Object.FindObjectsByType<FenceSpline>(FindObjectsSortMode.None);
+        foreach (FenceSpline fence in fences) fence.Rebuild();
+        Debug.Log($"Rebuilt {fences.Length} fence(s).");
     }
 
     static void DropNodesToTerrain(FenceSpline fence)

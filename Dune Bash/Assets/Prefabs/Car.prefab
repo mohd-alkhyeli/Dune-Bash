@@ -10530,7 +10530,6 @@ GameObject:
   - component: {fileID: 2099814472045430771}
   - component: {fileID: 1583225748741454104}
   - component: {fileID: 449952863098076142}
-  - component: {fileID: 7409243870853070690}
   - component: {fileID: 8505129557638694847}
   - component: {fileID: 8660743139292160064}
   m_Layer: 0
@@ -10622,10 +10621,13 @@ MonoBehaviour:
   enginePower: 2000
   topSpeed: 35
   boostTopSpeed: 40
-  turnSpeed: 25
+  turnSpeed: 30
   turnSmoothness: 5
   brakeTorque: 4000
   coastBrakeTorque: 250
+  rearTorqueBias: 0.6
+  sandGripMultiplier: 0.9
+  sandDragCoefficient: 2
   wheels:
   - {fileID: 2744185121142301980}
   - {fileID: 7836592541105783503}
@@ -10669,35 +10671,6 @@ MonoBehaviour:
   rightKey: 100
   boostKey: 304
   handbrakeKey: 32
---- !u!114 &7409243870853070690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2578446285851153817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e404b2d325fd1440b169ef489a525ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WheelDustFX
-  wheels:
-  - wheel: {fileID: 0}
-    dust: {fileID: 0}
-  - wheel: {fileID: 0}
-    dust: {fileID: 0}
-  - wheel: {fileID: 0}
-    dust: {fileID: 0}
-  - wheel: {fileID: 0}
-    dust: {fileID: 0}
-  slipStartThreshold: 0.1
-  slipFullThreshold: 1
-  maxEmissionRate: 70
-  rpmEmissionBoost: 0.4
-  landingImpactMinSpeed: 6
-  landingImpactMaxSpeed: 20
-  landingBurstMinParticles: 8
-  landingBurstMaxParticles: 40
 --- !u!114 &8505129557638694847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10725,6 +10698,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VehicleFlipDetector
   flippedUpDotThreshold: 0.2
+  restLinearSpeedThreshold: 0.5
+  restAngularSpeedThreshold: 0.5
   flippedDuration: 3
   debugFlipKey: 27
   debugFlipTorque: 6000

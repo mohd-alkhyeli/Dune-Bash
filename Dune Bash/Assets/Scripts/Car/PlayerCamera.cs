@@ -99,7 +99,10 @@ public class PlayerCamera : MonoBehaviour
         Vector3 desiredPos = target.position - followDir * distance + Vector3.up * height;
 
         RaycastHit groundHit;
-        if (Physics.Raycast(target.position + Vector3.up * 2f, Vector3.down, out groundHit, 200f, groundMask))
+        // Ignore triggers explicitly - this project has Queries Hit Triggers on, and checkpoint gates
+        // are wide, tall trigger volumes sitting right in the track that would otherwise register as
+        // "ground" and clamp the camera to the wrong height.
+        if (Physics.Raycast(target.position + Vector3.up * 2f, Vector3.down, out groundHit, 200f, groundMask, QueryTriggerInteraction.Ignore))
         {
             float minY = groundHit.point.y + minGroundClearance;
             if (desiredPos.y < minY) desiredPos.y = minY;

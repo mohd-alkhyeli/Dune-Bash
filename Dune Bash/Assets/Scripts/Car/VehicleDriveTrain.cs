@@ -26,6 +26,16 @@ public class VehicleDriveTrain : MonoBehaviour
     public float brakeTorque = 4000f;
     [Tooltip("Light brake torque applied automatically when there's no throttle input, so releasing the gas settles the vehicle down instead of coasting forever.")]
     public float coastBrakeTorque = 250f;
+    [Tooltip("How much drive torque shifts toward the rear wheels. 0 = equal torque on all four wheels (current AWD behavior); 1 = pure RWD, front wheels steer only with zero motor torque. Total torque output is conserved either way - this only redistributes where it goes. Steering wheels that are also fighting for forward traction have less lateral grip left over for cornering (a real tire's grip is a shared budget between accelerating and turning), which shows up as understeer under throttle - shifting torque to the rear frees the front tires' full grip for steering.")]
+    [Range(0f, 1f)] public float rearTorqueBias = 0.8f;
+
+    [Header("Sand Grip")]
+    [Tooltip("Multiplies both forward (accel/brake) and sideways (cornering) tire grip on all wheels, applied once on Awake. Unity's default WheelCollider friction is tuned closer to a hard/tarmac surface; lowering this makes wheels break traction more readily under hard throttle or sharp turns, like driving on loose sand instead.")]
+    [Range(0.1f, 1f)] public float sandGripMultiplier = 0.75f;
+
+    [Header("Sand Drag")]
+    [Tooltip("Deceleration (m/s^2) applied opposing horizontal movement, scaled by how much the wheels are actually slipping. A wheel spinning or sliding through sand drags hard; one rolling cleanly contributes near zero - deliberately NOT scaled by speed itself, so it can't fight the torque taper that already defines Top Speed once the car is cruising without slip. 0 disables it.")]
+    public float sandDragCoefficient = 4f;
 
     [Header("Wheels")]
     [Tooltip("Each entry needs a WheelCollider component. First two entries steer; the rest stay straight.")]
@@ -72,6 +82,8 @@ public class VehicleDriveTrain : MonoBehaviour
     public float airRollTorque = 5f;
     [Tooltip("Damps angular velocity while airborne so holding air control input doesn't spin the vehicle up indefinitely over a long jump.")]
     public float airAngularDrag = 0.8f;
+    [Tooltip("Minimum time (s) airborne before Air Control activates. Filters out brief false-airborne blips from dune crests/bumps - where a wheel majority loses contact for an instant but the car isn't really jumping - so pitch/roll torque only kicks in on a real jump, not a suspension hiccup.")]
+    public float minAirTimeBeforeControl = 0.2f;
 
     public float ThrottleInput { get; set; }
     public float SteerInput { get; set; }
@@ -88,6 +100,7 @@ public class VehicleDriveTrain : MonoBehaviour
 
     Rigidbody rb;
     float currentTurnAngle;
+    float airborneTime;
     WheelFrictionCurve[] rearBaseSidewaysFriction;
     bool rearFrictionCached;
 
@@ -96,6 +109,7 @@ public class VehicleDriveTrain : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass = centerOfMassOffset;
         ApplySuspensionCompensation();
+        ApplySandGrip();
         BoostFuel = maxBoostFuel;
     }
 
@@ -107,6 +121,7 @@ public class VehicleDriveTrain : MonoBehaviour
 
         SpeedKmh = rb.linearVelocity.magnitude * 3.6f;
         UpdateGroundedState();
+        airborneTime = IsGrounded ? 0f : airborneTime + Time.fixedDeltaTime;
 
         IsBoosting = BoostInput && BoostFuel > 0f;
         UpdateBoostFuel();
@@ -144,7 +159,7 @@ public class VehicleDriveTrain : MonoBehaviour
             if (wc == null) continue;
 
             wc.steerAngle = i < 2 ? currentTurnAngle : 0f;
-            wc.motorTorque = torque;
+            wc.motorTorque = i < 2 ? torque * (1f - rearTorqueBias) : torque * (1f + rearTorqueBias);
             wc.brakeTorque = brake;
 
             if (i >= 2) ApplyRearGrip(wc, i);
@@ -163,7 +178,8 @@ public class VehicleDriveTrain : MonoBehaviour
             ApplyAntiRoll(GetWheelCollider(2), GetWheelCollider(3), antiRollRear);
         }
 
-        if (!IsGrounded) HandleAirControl();
+        if (!IsGrounded && airborneTime >= minAirTimeBeforeControl) HandleAirControl();
+        ApplySandDrag();
     }
 
     WheelCollider GetWheelCollider(int i)
@@ -208,6 +224,52 @@ public class VehicleDriveTrain : MonoBehaviour
             BoostFuel += gain * Time.fixedDeltaTime;
         }
         BoostFuel = Mathf.Clamp(BoostFuel, 0f, maxBoostFuel);
+    }
+
+    void ApplySandGrip()
+    {
+        for (int i = 0; i < wheels.Length; i++)
+        {
+            WheelCollider wc = GetWheelCollider(i);
+            if (wc == null) continue;
+
+            WheelFrictionCurve forward = wc.forwardFriction;
+            forward.stiffness *= sandGripMultiplier;
+            wc.forwardFriction = forward;
+
+            WheelFrictionCurve sideways = wc.sidewaysFriction;
+            sideways.stiffness *= sandGripMultiplier;
+            wc.sidewaysFriction = sideways;
+        }
+    }
+
+    void ApplySandDrag()
+    {
+        if (sandDragCoefficient <= 0f) return;
+
+        // Average slip across grounded wheels - a wheel digging in (spinning or sliding) drags more
+        // than one rolling smoothly, same as pushing through loose sand rather than a hard surface.
+        float totalSlip = 0f;
+        int groundedCount = 0;
+        for (int i = 0; i < wheels.Length; i++)
+        {
+            WheelCollider wc = GetWheelCollider(i);
+            if (wc != null && wc.GetGroundHit(out WheelHit hit))
+            {
+                totalSlip += Mathf.Abs(hit.forwardSlip) + Mathf.Abs(hit.sidewaysSlip);
+                groundedCount++;
+            }
+        }
+        if (groundedCount == 0) return; // airborne - no ground to drag against
+
+        float avgSlip = totalSlip / groundedCount;
+        Vector3 horizontalVelocity = Vector3.ProjectOnPlane(rb.linearVelocity, Vector3.up);
+        if (horizontalVelocity.sqrMagnitude < 0.01f) return;
+
+        // Direction-only, not scaled by current speed - a fixed deceleration while slipping, rather
+        // than a velocity-proportional drag that would create a second, lower equilibrium speed
+        // competing with the torque taper's own top-speed cutoff.
+        rb.AddForce(-horizontalVelocity.normalized * (sandDragCoefficient * avgSlip), ForceMode.Acceleration);
     }
 
     void UpdateGroundedState()

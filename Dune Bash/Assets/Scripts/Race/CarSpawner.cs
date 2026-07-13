@@ -27,8 +27,8 @@ public class CarSpawner : MonoBehaviour
     public float terrainSearchHeight = 200f;
     [Tooltip("Extra height (m) added above the raw terrain hit when placing a spawned car. Needed because a car's pivot isn't at its wheel-ground contact point, and a little extra buffer lets suspension settle it naturally rather than needing pixel-perfect placement. Raise this if the car still spawns partially buried; lower it if it spawns floating/falls too far.")]
     public float spawnHeightOffset = 1.2f;
-    [Tooltip("Where the very first car spawns, before the player has reached any checkpoint.")]
-    public Transform initialSpawnPoint;
+    [Tooltip("The race-start grid. The player's first spawn (and any respawn with no last-checkpoint to go by) claims a random unique point from this instead of using a single fixed spot.")]
+    public StartGrid startGrid;
 
     GameObject currentCar;
     VehicleFlipDetector currentFlipDetector;
@@ -36,8 +36,7 @@ public class CarSpawner : MonoBehaviour
 
     void Start()
     {
-        Vector3 pos = initialSpawnPoint != null ? initialSpawnPoint.position : transform.position;
-        Quaternion rot = initialSpawnPoint != null ? initialSpawnPoint.rotation : Quaternion.identity;
+        GetStartGridSpawn(out Vector3 pos, out Quaternion rot);
         SpawnCar(ProjectToTerrain(pos), rot, null);
     }
 
@@ -61,11 +60,25 @@ public class CarSpawner : MonoBehaviour
         }
         else
         {
-            spawnPos = initialSpawnPoint != null ? initialSpawnPoint.position : transform.position;
-            spawnRot = initialSpawnPoint != null ? initialSpawnPoint.rotation : Quaternion.identity;
+            GetStartGridSpawn(out spawnPos, out spawnRot);
         }
 
         SpawnCar(ProjectToTerrain(spawnPos), spawnRot, previousTracker);
+    }
+
+    void GetStartGridSpawn(out Vector3 position, out Quaternion rotation)
+    {
+        Transform point = startGrid != null ? startGrid.ClaimRandomPoint() : null;
+        if (point != null)
+        {
+            position = point.position;
+            rotation = point.rotation;
+        }
+        else
+        {
+            position = transform.position;
+            rotation = Quaternion.identity;
+        }
     }
 
     void SpawnCar(Vector3 position, Quaternion rotation, LapTracker previousTracker)

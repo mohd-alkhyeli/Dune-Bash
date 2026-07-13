@@ -190,13 +190,12 @@ public class FenceSpline : MonoBehaviour
             tris[ti++] = tl; tris[ti++] = tr; tris[ti++] = br;
         }
 
-        Mesh mesh = meshFilter.sharedMesh;
-        if (mesh == null)
-        {
-            mesh = new Mesh { name = "FenceSheet" };
-            meshFilter.sharedMesh = mesh;
-        }
-        mesh.Clear();
+        // Always a fresh Mesh rather than reusing meshFilter.sharedMesh - duplicating a fence GameObject
+        // in the Editor copies the *reference* to an existing edit-time-created mesh rather than making
+        // an independent copy, so two fences can silently end up sharing one Mesh object and stomping
+        // on each other's geometry on rebuild. A new instance every time makes that impossible.
+        Mesh mesh = new Mesh { name = "FenceSheet" };
+        meshFilter.sharedMesh = mesh;
         mesh.SetVertices(verts);
         mesh.SetUVs(0, uvs);
         mesh.SetTriangles(tris, 0);
