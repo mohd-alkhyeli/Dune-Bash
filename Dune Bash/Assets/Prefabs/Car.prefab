@@ -10622,7 +10622,7 @@ MonoBehaviour:
   enginePower: 2000
   topSpeed: 35
   boostTopSpeed: 40
-  turnSpeed: 25
+  turnSpeed: 35
   turnSmoothness: 5
   brakeTorque: 4000
   coastBrakeTorque: 250
@@ -10636,7 +10636,7 @@ MonoBehaviour:
   - {fileID: 8009403704031089361}
   - {fileID: 8973998008007851478}
   - {fileID: 7023269116793800981}
-  centerOfMassOffset: {x: 0, y: 0.5, z: 0}
+  centerOfMassOffset: {x: 0, y: 0.75, z: 0}
   boostMultiplier: 3.5
   handbrakeRearGripMultiplier: 0.3
   maxBoostFuel: 3
@@ -10647,8 +10647,8 @@ MonoBehaviour:
   antiRollRear: 9000
   extraGravity: 2
   suspensionCompensation: 0.5
-  airPitchTorque: 4
-  airRollTorque: 5
+  airPitchTorque: 2
+  airRollTorque: 2.5
   airAngularDrag: 0.8
 --- !u!114 &449952863098076142
 MonoBehaviour:
@@ -10725,6 +10725,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VehicleFlipDetector
   flippedUpDotThreshold: 0.2
+  restLinearSpeedThreshold: 0.5
+  restAngularSpeedThreshold: 0.5
   flippedDuration: 3
   debugFlipKey: 27
   debugFlipTorque: 6000
