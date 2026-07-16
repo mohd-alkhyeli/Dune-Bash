@@ -13405,7 +13405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AISpawner
   aiCarPrefab: {fileID: 2727872590083501032, guid: c7dbf506ec3ccb947824a2a9d0aa0c81, type: 3}
-  aiCount: 15
+  aiCount: 7
   materials:
   - {fileID: 2100000, guid: 8e5e930d5312a814ea0132a92a583fe4, type: 2}
   - {fileID: 2100000, guid: a50ae69ebd66b024bae3aaa2c9c3db0c, type: 2}
