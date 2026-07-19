@@ -5,8 +5,8 @@ using UnityEngine;
 /// Spawns a roster of AI cars and respawns each one individually whenever its own VehicleFlipDetector
 /// reports it's stuck - same respawn-keeps-progress, abandon-the-wreck approach as CarSpawner, just for
 /// N cars instead of one. Each AI car keeps its assigned color across respawns (a car doesn't change
-/// color just because it crashed). Positions are claimed from the same StartGrid the player uses, so
-/// neither can double-book a slot regardless of which spawner runs first.
+/// color just because it crashed). Positions are claimed from RaceConfig's shared StartGrid, the same
+/// one CarSpawner uses, so neither can double-book a slot regardless of which spawner runs first.
 /// </summary>
 public class AISpawner : MonoBehaviour
 {
@@ -24,15 +24,7 @@ public class AISpawner : MonoBehaviour
     [Tooltip("How far around the color wheel a generated fallback color can shift from its source material, as a fraction of the full wheel (0 = no change, 1 = anywhere). Only used once every Materials entry is already claimed and there are more AI cars than colors - a fresh hue-shifted variant beats handing two cars the exact same color. This car's color comes from a baked texture (not a shader tint), so the shift is applied per-pixel to a generated copy of that texture - the source texture asset must have Read/Write Enabled in its Import Settings, or the fallback silently keeps the original color instead.")]
     [Range(0f, 1f)] public float hueShiftRange = 1f;
 
-    [Header("Race")]
-    [Tooltip("Shared race-start grid - each AI car claims a random unique point from this, same as the player's CarSpawner does.")]
-    public StartGrid startGrid;
-    [Tooltip("The race's start/finish checkpoint, used to initialize each AI car's LapTracker on first spawn.")]
-    public Checkpoint startCheckpoint;
-
     [Header("Terrain")]
-    [Tooltip("Used to ground-snap spawn height so AI cars don't spawn floating or buried. Leave unassigned to spawn at each spawn point's authored height as-is.")]
-    public Collider terrainCollider;
     [Tooltip("How far above/below a spawn point to search for the terrain surface.")]
     public float terrainSearchHeight = 200f;
     [Tooltip("Extra height (m) added above the raw terrain hit when placing a spawned car - same purpose as CarSpawner's own value, and likely the same number unless this AI prefab has a differently-placed pivot.")]
@@ -90,7 +82,7 @@ public class AISpawner : MonoBehaviour
         if (lapTracker != null)
         {
             if (previousTracker != null) lapTracker.CopyProgressFrom(previousTracker);
-            else lapTracker.Initialize(startCheckpoint);
+            else lapTracker.Initialize(RaceConfig.StartCheckpoint);
         }
 
         AICarState state = new AICarState
@@ -118,6 +110,7 @@ public class AISpawner : MonoBehaviour
 
     void GetStartGridSpawn(out Vector3 position, out Quaternion rotation)
     {
+        StartGrid startGrid = RaceConfig.StartGrid;
         Transform point = startGrid != null ? startGrid.ClaimRandomPoint() : null;
         if (point != null)
         {
@@ -219,6 +212,7 @@ public class AISpawner : MonoBehaviour
 
     Vector3 ProjectToTerrain(Vector3 point)
     {
+        Collider terrainCollider = RaceConfig.TerrainCollider;
         if (terrainCollider == null) return point;
 
         Vector3 origin = new Vector3(point.x, point.y + terrainSearchHeight, point.z);

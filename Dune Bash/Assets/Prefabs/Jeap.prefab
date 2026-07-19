@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7700203145041802023}
   - component: {fileID: 2714092805903686877}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WheelAnchor_FL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9158371664376158075}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wheels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7851904455745415557}
   - component: {fileID: 2622546944870858266}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WheelAnchor_RR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 2511083432526005475}
   - component: {fileID: 237190278342804169}
   - component: {fileID: 5167502283448930363}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RearWheel_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,6 +269,37 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4929602657473278192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4554820565553943818}
+  m_Layer: 10
+  m_Name: Smoke Origin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4554820565553943818
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4929602657473278192}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.187, z: 1.17}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3945873800165099742}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6392635367646278504
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,7 +310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5367762283442979447}
   - component: {fileID: 1049950767363420897}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WheelAnchor_RL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +381,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7958716434753208457}
   - component: {fileID: 626331484518710311}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WheelAnchor_FR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -422,7 +453,7 @@ GameObject:
   - component: {fileID: 5787464162672168519}
   - component: {fileID: 3483411603594977016}
   - component: {fileID: 2294455491970821206}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RearWheel_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -562,6 +593,10 @@ PrefabInstance:
       value: Jeap
       objectReference: {fileID: 0}
     - target: {fileID: 8771091787928289351, guid: 7b71f5d2e633aa94bb0c9f757210e055, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771091787928289351, guid: 7b71f5d2e633aa94bb0c9f757210e055, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -570,7 +605,10 @@ PrefabInstance:
     - {fileID: 756331170663715830, guid: 7b71f5d2e633aa94bb0c9f757210e055, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -3910990755373119420, guid: 7b71f5d2e633aa94bb0c9f757210e055, type: 3}
-      insertIndex: 2
+      insertIndex: 1
+      addedObject: {fileID: 4554820565553943818}
+    - targetCorrespondingSourceObject: {fileID: -3910990755373119420, guid: 7b71f5d2e633aa94bb0c9f757210e055, type: 3}
+      insertIndex: 3
       addedObject: {fileID: 9158371664376158075}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: 7b71f5d2e633aa94bb0c9f757210e055, type: 3}
@@ -581,10 +619,13 @@ PrefabInstance:
       addedObject: {fileID: 7096337284352310656}
     - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: 7b71f5d2e633aa94bb0c9f757210e055, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 247159332700532301}
+      addedObject: {fileID: -1356391901500168909}
     - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: 7b71f5d2e633aa94bb0c9f757210e055, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1323606518993297470}
+    - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: 7b71f5d2e633aa94bb0c9f757210e055, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 247159332700532301}
     - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: 7b71f5d2e633aa94bb0c9f757210e055, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3589827115775925004}
@@ -594,6 +635,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: 7b71f5d2e633aa94bb0c9f757210e055, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7011728152263258177}
+    - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: 7b71f5d2e633aa94bb0c9f757210e055, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8588404937173617884}
+    - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: 7b71f5d2e633aa94bb0c9f757210e055, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8848111105147545452}
   m_SourcePrefab: {fileID: -4161369568681901532, guid: 7b71f5d2e633aa94bb0c9f757210e055, type: 3}
 --- !u!1 &487229281478721757 stripped
 GameObject:
@@ -626,7 +673,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &7096337284352310656
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -648,6 +695,41 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.0443726, y: 1.4551363, z: 4.094818}
   m_Center: {x: -0.00881958, y: 1.2275681, z: 0.03010559}
+--- !u!114 &-1356391901500168909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487229281478721757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a69778774ced8940b0a9b0bc554da2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleHealth
+  maxHealth: 100
+  minDamageSpeed: 4
+  maxDamageSpeed: 20
+  maxDamagePerHit: 40
+--- !u!114 &1323606518993297470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487229281478721757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8debb98c4137d1e4f95d46cf78d3785a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerVehicleInput
+  driveTrain: {fileID: 247159332700532301}
+  forwardKey: 119
+  backKey: 115
+  leftKey: 97
+  rightKey: 100
+  boostKey: 304
+  handbrakeKey: 32
 --- !u!114 &247159332700532301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,7 +751,7 @@ MonoBehaviour:
   coastBrakeTorque: 250
   rearTorqueBias: 0.6
   sandGripMultiplier: 0.9
-  sandDragCoefficient: 2
+  sandDragCoefficient: 3
   wheels:
   - {fileID: 7700203145041802023}
   - {fileID: 7958716434753208457}
@@ -695,25 +777,6 @@ MonoBehaviour:
   airRollTorque: 5
   airAngularDrag: 0.8
   minAirTimeBeforeControl: 0.3
---- !u!114 &1323606518993297470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 487229281478721757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8debb98c4137d1e4f95d46cf78d3785a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerVehicleInput
-  driveTrain: {fileID: 247159332700532301}
-  forwardKey: 119
-  backKey: 115
-  leftKey: 97
-  rightKey: 100
-  boostKey: 304
-  handbrakeKey: 32
 --- !u!114 &3589827115775925004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,6 +836,43 @@ MonoBehaviour:
   startSizeScale: 0.2
   endSizeScale: 1.5
   kickSpeed: 7.5
+--- !u!114 &8588404937173617884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487229281478721757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af27d31c5a08c864dab7a1f07fab3c13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EngineSmokeFX
+  smokeOrigin: {fileID: 4554820565553943818}
+  smokeStartHealth: 0.6
+  smokeMaxHealth: 0.15
+  maxEmissionRate: 40
+  lightSmokeColor: {r: 0.6, g: 0.6, b: 0.6, a: 0.35686275}
+  heavySmokeColor: {r: 0.05, g: 0.05, b: 0.05, a: 0.4862745}
+  particleSize: 5
+  particleLifetime: 1.5
+  startSizeScale: 0.5
+  endSizeScale: 1.6
+  riseSpeed: 1.2
+--- !u!114 &8848111105147545452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487229281478721757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944f75e46f88608499b5460255722771, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleHealthDebugUI
+  heightOffset: 2.5
+  fontSize: 18
 --- !u!4 &3945873800165099742 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -3910990755373119420, guid: 7b71f5d2e633aa94bb0c9f757210e055, type: 3}

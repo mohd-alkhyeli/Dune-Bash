@@ -3,10 +3,11 @@ using UnityEngine;
 
 /// <summary>
 /// Race-start spawn positions, separate from Checkpoint's mid-race respawn points. Any number of
-/// points is supported - add/remove via the editor tool. Rebuild snaps every point's height to the
-/// terrain and forces all of them to face the same direction (Start Checkpoint's facing) so the grid
-/// reads as a real starting line rather than points aimed wherever they were dragged. CarSpawner (and
-/// later AISpawner) call ClaimRandomPoint() to get a unique, non-repeating point per competitor.
+/// points is supported - add/remove via the editor tool. Rebuild snaps every point's height to
+/// RaceConfig's Terrain Collider and forces all of them to face the same direction (RaceConfig's Start
+/// Checkpoint facing) so the grid reads as a real starting line rather than points aimed wherever they
+/// were dragged. CarSpawner (and AISpawner) call ClaimRandomPoint() to get a unique, non-repeating
+/// point per competitor.
 /// </summary>
 public class StartGrid : MonoBehaviour
 {
@@ -14,13 +15,7 @@ public class StartGrid : MonoBehaviour
     [Tooltip("Race-start positions. Any count is supported. Only position matters when placing these - rotation is overwritten on Rebuild to keep the whole grid facing the same direction.")]
     public Transform[] points;
 
-    [Header("Facing")]
-    [Tooltip("All spawn points are rotated to match this checkpoint's facing on Rebuild, keeping the grid parallel. This checkpoint's own rotation already points toward its Next Checkpoints if it was built via CheckpointCircuit. Also used as the origin/orientation for Generate Grid Layout below.")]
-    public Checkpoint startCheckpoint;
-
     [Header("Terrain")]
-    [Tooltip("Used to ground-snap each spawn point's height. Leave unassigned to use each point's authored height as-is.")]
-    public Collider terrainCollider;
     [Tooltip("How far above/below a spawn point to search for the terrain surface.")]
     public float terrainSearchHeight = 200f;
 
@@ -46,8 +41,10 @@ public class StartGrid : MonoBehaviour
             return;
         }
 
+        Checkpoint startCheckpoint = RaceConfig.StartCheckpoint;
         Quaternion facing = startCheckpoint != null ? startCheckpoint.transform.rotation : transform.rotation;
 
+        Collider terrainCollider = RaceConfig.TerrainCollider;
         foreach (Transform point in points)
         {
             if (point == null) continue;
@@ -70,9 +67,10 @@ public class StartGrid : MonoBehaviour
     /// </summary>
     public void GenerateGrid()
     {
+        Checkpoint startCheckpoint = RaceConfig.StartCheckpoint;
         if (startCheckpoint == null)
         {
-            Debug.LogWarning("StartGrid needs Start Checkpoint assigned before it can generate a grid layout.", this);
+            Debug.LogWarning("StartGrid needs RaceConfig's Start Checkpoint assigned before it can generate a grid layout.", this);
             return;
         }
 
@@ -107,7 +105,7 @@ public class StartGrid : MonoBehaviour
 
     Vector3 GridOrigin()
     {
-        return gridOrigin != null ? gridOrigin.position : startCheckpoint.transform.position;
+        return gridOrigin != null ? gridOrigin.position : RaceConfig.StartCheckpoint.transform.position;
     }
 
     void ClearPoints()
@@ -181,12 +179,14 @@ public class StartGrid : MonoBehaviour
     /// </summary>
     void DrawGridPreview()
     {
+        Checkpoint startCheckpoint = RaceConfig.StartCheckpoint;
         if (startCheckpoint == null) return;
 
         Vector3 origin = GridOrigin();
         Vector3 right = startCheckpoint.transform.right;
         Vector3 back = -startCheckpoint.transform.forward;
 
+        Collider terrainCollider = RaceConfig.TerrainCollider;
         Gizmos.color = Color.yellow;
         for (int r = 0; r < gridRows; r++)
         {

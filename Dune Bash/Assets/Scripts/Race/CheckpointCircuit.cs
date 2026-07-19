@@ -3,10 +3,14 @@ using UnityEngine;
 /// <summary>
 /// Turns a hand-placed sequence of nodes into a working checkpoint loop: adds a BoxCollider +
 /// Checkpoint to each node, wires Next Checkpoints in order (wrapping the last node back to the
-/// first, since lap counting needs a closed loop), assigns increasing trackProgress values, and
-/// orients each gate across the direction of travel. Everything only (re)builds when Rebuild is
-/// pressed - same workflow as FenceSpline. Point CarSpawner's Start Checkpoint at nodes[0]'s Checkpoint
-/// once built - a LapTracker is spawned fresh per car now, so there's no persistent scene tracker here.
+/// first, since lap counting needs a closed loop), assigns increasing trackProgress values, renames
+/// each node to match its final position in the sequence, and orients each gate across the direction
+/// of travel. The rename step exists because Add Node only names a node once at creation time - after
+/// nodes get reordered/inserted/removed a few times, those creation-time names no longer match actual
+/// track order, which Rebuild now corrects every time it runs. Everything only (re)builds when Rebuild
+/// is pressed - same workflow as FenceSpline. Point CarSpawner's Start Checkpoint at nodes[0]'s
+/// Checkpoint once built - a LapTracker is spawned fresh per car now, so there's no persistent scene
+/// tracker here.
 /// </summary>
 public class CheckpointCircuit : MonoBehaviour
 {
@@ -43,6 +47,7 @@ public class CheckpointCircuit : MonoBehaviour
         {
             checkpoints[i] = EnsureCheckpoint(nodes[i]);
             checkpoints[i].trackProgress = i;
+            nodes[i].name = $"Checkpoint_{i}";
         }
 
         for (int i = 0; i < nodes.Length; i++)

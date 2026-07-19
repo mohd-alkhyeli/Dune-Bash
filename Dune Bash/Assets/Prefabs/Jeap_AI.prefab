@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8848111105147545452, guid: aa882080fda0c5249bb8a8d638095d94, type: 3}
+      propertyPath: fontSize
+      value: 24
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1323606518993297470, guid: aa882080fda0c5249bb8a8d638095d94, type: 3}
     m_RemovedGameObjects: []
@@ -85,4 +89,20 @@ MonoBehaviour:
   maxSteerAngle: 40
   slowdownAngle: 70
   minCorneringThrottle: 0.4
-  laneOffsetRange: 10
+  laneOffsetRange: 3
+  lookaheadTime: 0.8
+  minLookaheadDistance: 4
+  maxLookaheadDistance: 25
+  dangerSpreadDegrees: 60
+  aheadDotThreshold: 0.5
+  racingSpeedRatio: 0.85
+  avoidanceSteerStrength: 0.6
+  avoidanceThrottleCut: 0
+  trackWidthSafetyMargin: 0.7
+  fallbackGateWidth: 10
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  obstacleSenseDistance: 75
+  obstacleAvoidanceStrength: 0.8
+  tieBreakDegrees: 4

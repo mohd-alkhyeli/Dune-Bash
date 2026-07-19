@@ -19,16 +19,10 @@ public class CarSpawner : MonoBehaviour
     public BoostMeterUI boostMeterUI;
     [Tooltip("Optional - the HUD lap/placement readout, retargeted to whichever car is currently active. Leave unassigned if you don't have one.")]
     public LapCounterUI lapCounterUI;
-    [Tooltip("The race's start/finish checkpoint, used to initialize a freshly spawned car's LapTracker. Not needed if Car Prefab has no LapTracker.")]
-    public Checkpoint startCheckpoint;
-    [Tooltip("Used to ground-snap spawn point height so cars don't spawn floating or buried. Leave unassigned to spawn at each spawn point's authored height as-is.")]
-    public Collider terrainCollider;
     [Tooltip("How far above/below a spawn point to search for the terrain surface.")]
     public float terrainSearchHeight = 200f;
     [Tooltip("Extra height (m) added above the raw terrain hit when placing a spawned car. Needed because a car's pivot isn't at its wheel-ground contact point, and a little extra buffer lets suspension settle it naturally rather than needing pixel-perfect placement. Raise this if the car still spawns partially buried; lower it if it spawns floating/falls too far.")]
     public float spawnHeightOffset = 1.2f;
-    [Tooltip("The race-start grid. The player's first spawn (and any respawn with no last-checkpoint to go by) claims a random unique point from this instead of using a single fixed spot.")]
-    public StartGrid startGrid;
 
     GameObject currentCar;
     VehicleFlipDetector currentFlipDetector;
@@ -68,6 +62,7 @@ public class CarSpawner : MonoBehaviour
 
     void GetStartGridSpawn(out Vector3 position, out Quaternion rotation)
     {
+        StartGrid startGrid = RaceConfig.StartGrid;
         Transform point = startGrid != null ? startGrid.ClaimRandomPoint() : null;
         if (point != null)
         {
@@ -92,7 +87,7 @@ public class CarSpawner : MonoBehaviour
         if (currentLapTracker != null)
         {
             if (previousTracker != null) currentLapTracker.CopyProgressFrom(previousTracker);
-            else currentLapTracker.Initialize(startCheckpoint);
+            else currentLapTracker.Initialize(RaceConfig.StartCheckpoint);
         }
 
         if (playerCamera != null)
@@ -123,6 +118,7 @@ public class CarSpawner : MonoBehaviour
 
     Vector3 ProjectToTerrain(Vector3 point)
     {
+        Collider terrainCollider = RaceConfig.TerrainCollider;
         if (terrainCollider == null) return point;
 
         Vector3 origin = new Vector3(point.x, point.y + terrainSearchHeight, point.z);

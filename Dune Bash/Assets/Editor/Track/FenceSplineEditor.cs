@@ -83,9 +83,9 @@ public class FenceSplineEditor : Editor
 
     static void DropNodesToTerrain(FenceSpline fence)
     {
-        if (fence.terrainCollider == null)
+        if (RaceConfig.TerrainCollider == null)
         {
-            Debug.LogWarning("Assign a Terrain Collider on the FenceSpline before dropping nodes.", fence);
+            Debug.LogWarning("Assign a Terrain Collider on the scene's RaceConfig before dropping nodes.", fence);
             return;
         }
         if (fence.nodes == null || fence.nodes.Length == 0) return;

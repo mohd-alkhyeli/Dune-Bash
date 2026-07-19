@@ -72,7 +72,8 @@ public class StartGridEditor : Editor
         Undo.SetCurrentGroupName("Create Start Grid Origin");
 
         GameObject go = new GameObject("GridOrigin");
-        go.transform.position = grid.startCheckpoint != null ? grid.startCheckpoint.transform.position : grid.transform.position;
+        Checkpoint startCheckpoint = RaceConfig.StartCheckpoint;
+        go.transform.position = startCheckpoint != null ? startCheckpoint.transform.position : grid.transform.position;
         go.transform.SetParent(grid.transform, true);
         Undo.RegisterCreatedObjectUndo(go, "Create Start Grid Origin");
 

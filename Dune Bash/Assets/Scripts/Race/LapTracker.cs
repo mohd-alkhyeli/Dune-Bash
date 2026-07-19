@@ -83,8 +83,13 @@ public class LapTracker : MonoBehaviour
 
     /// <summary>
     /// 0-1 progress through the segment from Current Checkpoint toward its (first) next checkpoint,
-    /// based on straight-line distance closed so far. Used only to break standings ties between two
-    /// cars that share the same checkpoint/lap - not meant to be a precise route-distance metric.
+    /// used only to break standings ties between two cars that share the same checkpoint/lap. Measured
+    /// by projecting the car's position onto the segment line (not raw distance to the next checkpoint) -
+    /// distance-to-endpoint alone falsely rewards a car that's merely geometrically close to the next
+    /// checkpoint (e.g. sitting off to the side early in the segment) over one that's actually travelled
+    /// further along it. Still assumes the segment is a straight line between the two checkpoints, so a
+    /// wide curve between them is only approximated - genuine curve accuracy would need denser
+    /// checkpoints along the curve, not a smarter formula here.
     /// </summary>
     public float SegmentProgress()
     {
@@ -94,10 +99,83 @@ public class LapTracker : MonoBehaviour
         Checkpoint next = CurrentCheckpoint.nextCheckpoints[0];
         if (next == null) return 0f;
 
-        float segmentLength = Vector3.Distance(CurrentCheckpoint.transform.position, next.transform.position);
-        if (segmentLength < 0.01f) return 0f;
+        Vector3 segment = next.transform.position - CurrentCheckpoint.transform.position;
+        float segmentLengthSqr = segment.sqrMagnitude;
+        if (segmentLengthSqr < 0.0001f) return 0f;
 
-        float distanceToNext = Vector3.Distance(transform.position, next.transform.position);
-        return Mathf.Clamp01(1f - distanceToNext / segmentLength);
+        Vector3 toCar = transform.position - CurrentCheckpoint.transform.position;
+        float t = Vector3.Dot(toCar, segment) / segmentLengthSqr;
+        return Mathf.Clamp01(t);
+    }
+
+    /// <summary>
+    /// World-space point Lookahead Distance (m) ahead of this car along the checkpoint chain - the aim
+    /// point for Pure Pursuit steering. Starts by projecting the car onto its current segment (same
+    /// projection SegmentProgress uses) and walks forward through subsequent checkpoints if the
+    /// distance runs past the current segment's end, so a large lookahead on a track with closely
+    /// spaced checkpoints still resolves to a real point on the path rather than stopping short at the
+    /// next checkpoint. On a fork, always follows nextCheckpoints[0] - the same approximation already
+    /// accepted everywhere else this graph is walked.
+    /// </summary>
+    public Vector3 GetLookaheadPoint(float lookaheadDistance)
+    {
+        Checkpoint from = CurrentCheckpoint;
+        if (from == null) return transform.position;
+
+        Checkpoint to = NextOf(from);
+        if (to == null) return transform.position;
+
+        Vector3 a = from.transform.position;
+        Vector3 b = to.transform.position;
+        Vector3 segment = b - a;
+        float segmentLength = segment.magnitude;
+
+        Vector3 fallback = b;
+        float remaining;
+
+        if (segmentLength < 0.0001f)
+        {
+            remaining = lookaheadDistance;
+        }
+        else
+        {
+            float t = Mathf.Clamp01(Vector3.Dot(transform.position - a, segment) / (segmentLength * segmentLength));
+            float distanceRemainingInSegment = segmentLength * (1f - t);
+
+            if (lookaheadDistance <= distanceRemainingInSegment)
+                return a + segment * (t + lookaheadDistance / segmentLength);
+
+            remaining = lookaheadDistance - distanceRemainingInSegment;
+        }
+
+        // Lookahead point falls beyond this segment - keep walking the chain. The track is a closed
+        // loop so this always terminates; the guard only protects against a malformed graph.
+        Checkpoint current = to;
+        for (int i = 0; i < 64 && remaining > 0f; i++)
+        {
+            Checkpoint nextCheckpoint = NextOf(current);
+            if (nextCheckpoint == null) break;
+
+            Vector3 segStart = current.transform.position;
+            Vector3 segEnd = nextCheckpoint.transform.position;
+            float segLength = Vector3.Distance(segStart, segEnd);
+
+            if (segLength < 0.0001f) { current = nextCheckpoint; continue; }
+
+            if (remaining <= segLength)
+                return segStart + (segEnd - segStart) * (remaining / segLength);
+
+            remaining -= segLength;
+            fallback = segEnd;
+            current = nextCheckpoint;
+        }
+
+        return fallback;
+    }
+
+    static Checkpoint NextOf(Checkpoint checkpoint)
+    {
+        if (checkpoint == null || checkpoint.nextCheckpoints == null || checkpoint.nextCheckpoints.Length == 0) return null;
+        return checkpoint.nextCheckpoints[0];
     }
 }

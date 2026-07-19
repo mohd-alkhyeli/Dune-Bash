@@ -35,10 +35,10 @@ public class FenceSpline : MonoBehaviour
     [Header("Collision")]
     [Tooltip("Thickness (m) of each generated box collider segment. Keep this generous relative to how fast cars can hit the fence - a too-thin collider risks a fast-moving car tunneling straight through between physics steps.")]
     public float colliderThickness = 0.3f;
+    [Tooltip("Physics layer assigned to each generated collider segment, so AIVehicleInput can sense the fence directly via a layer-filtered raycast instead of only inferring track width from checkpoint gate width. Must already exist as a named layer (Project Settings > Tags and Layers) before Rebuild runs, or colliders are left on the default layer and a warning is logged.")]
+    public string fenceLayerName = "Fence";
 
     [Header("Terrain Snap")]
-    [Tooltip("Collider to drop nodes onto with the Drop Nodes To Terrain button in the inspector - drag in your terrain/ground object's collider. Only a node's height (Y) is changed; X/Z stay exactly where you placed them.")]
-    public Collider terrainCollider;
     [Tooltip("How far above a node to start searching downward for the terrain surface (and how far below it to keep searching) when snapping. Raise this if a node sits far above or below the terrain and the snap fails to find it.")]
     public float snapSearchHeight = 200f;
 
@@ -81,8 +81,8 @@ public class FenceSpline : MonoBehaviour
 
     /// <summary>
     /// Raycasts straight down (and up, via the search range) from the node's current X/Z onto
-    /// Terrain Collider and moves the node's Y to match. Leaves X/Z untouched. Returns false if
-    /// nothing was hit within Snap Search Height.
+    /// RaceConfig.TerrainCollider and moves the node's Y to match. Leaves X/Z untouched. Returns false
+    /// if nothing was hit within Snap Search Height, or if RaceConfig has no Terrain Collider assigned.
     /// </summary>
     public bool TrySnapNodeToTerrain(Transform node)
     {
@@ -101,6 +101,7 @@ public class FenceSpline : MonoBehaviour
     bool RaycastTerrainHeight(Vector3 point, out float height)
     {
         height = point.y;
+        Collider terrainCollider = RaceConfig.TerrainCollider;
         if (terrainCollider == null) return false;
 
         Vector3 origin = new Vector3(point.x, point.y + snapSearchHeight, point.z);
@@ -233,6 +234,11 @@ public class FenceSpline : MonoBehaviour
     void BuildColliders(List<Vector3> worldPoints)
     {
         ClearContainer(collidersContainer);
+
+        int fenceLayer = LayerMask.NameToLayer(fenceLayerName);
+        if (fenceLayer < 0)
+            Debug.LogWarning($"FenceSpline: layer \"{fenceLayerName}\" doesn't exist (Project Settings > Tags and Layers) - collider segments left on the Default layer instead.", this);
+
         for (int i = 0; i < worldPoints.Count - 1; i++)
         {
             Vector3 a = worldPoints[i];
@@ -244,6 +250,7 @@ public class FenceSpline : MonoBehaviour
             go.transform.SetParent(collidersContainer, false);
             go.transform.position = (a + b) * 0.5f + Vector3.up * (fenceHeight * 0.5f);
             go.transform.rotation = Quaternion.LookRotation((b - a).normalized, Vector3.up);
+            if (fenceLayer >= 0) go.layer = fenceLayer;
 
             BoxCollider box = go.AddComponent<BoxCollider>();
             // Extend slightly past the segment length so neighboring boxes overlap through bends instead of leaving seam gaps.

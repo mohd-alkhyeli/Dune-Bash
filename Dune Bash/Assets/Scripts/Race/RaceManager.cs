@@ -19,6 +19,9 @@ public static class RaceManager
         activeTrackers.Remove(tracker);
     }
 
+    /// <summary>Every active LapTracker, unordered - cheaper than GetStandings() for callers that just need to iterate all cars (e.g. AI avoidance) rather than rank them.</summary>
+    public static IReadOnlyList<LapTracker> GetActive() => activeTrackers;
+
     /// <summary>Every active LapTracker ordered from 1st place to last.</summary>
     public static List<LapTracker> GetStandings()
     {
