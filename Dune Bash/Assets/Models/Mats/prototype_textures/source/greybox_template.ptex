@@ -1,0 +1,2062 @@
+{
+	"connections": [
+		{
+			"from": "bricks3",
+			"from_port": 0,
+			"to": "invert",
+			"to_port": 0
+		},
+		{
+			"from": "shape",
+			"from_port": 0,
+			"to": "transform2",
+			"to_port": 0
+		},
+		{
+			"from": "bricks3_2",
+			"from_port": 0,
+			"to": "invert_2",
+			"to_port": 0
+		},
+		{
+			"from": "bricks3_3",
+			"from_port": 0,
+			"to": "invert_3",
+			"to_port": 0
+		},
+		{
+			"from": "invert",
+			"from_port": 0,
+			"to": "blend2_2",
+			"to_port": 0
+		},
+		{
+			"from": "invert_2",
+			"from_port": 0,
+			"to": "blend2_2",
+			"to_port": 1
+		},
+		{
+			"from": "invert_3",
+			"from_port": 0,
+			"to": "blend2_2",
+			"to_port": 3
+		},
+		{
+			"from": "tones_2",
+			"from_port": 0,
+			"to": "colorize",
+			"to_port": 0
+		},
+		{
+			"from": "reroute_2",
+			"from_port": 0,
+			"to": "tones_2",
+			"to_port": 0
+		},
+		{
+			"from": "image",
+			"from_port": 0,
+			"to": "tiler",
+			"to_port": 0
+		},
+		{
+			"from": "blend2_2",
+			"from_port": 0,
+			"to": "reroute",
+			"to_port": 0
+		},
+		{
+			"from": "reroute_3",
+			"from_port": 0,
+			"to": "switch",
+			"to_port": 0
+		},
+		{
+			"from": "switch",
+			"from_port": 0,
+			"to": "blend2_4",
+			"to_port": 3
+		},
+		{
+			"from": "reroute",
+			"from_port": 0,
+			"to": "switch_2",
+			"to_port": 0
+		},
+		{
+			"from": "switch_2",
+			"from_port": 0,
+			"to": "blend2_4",
+			"to_port": 1
+		},
+		{
+			"from": "tiler",
+			"from_port": 0,
+			"to": "math_v3",
+			"to_port": 0
+		},
+		{
+			"from": "reroute_2",
+			"from_port": 0,
+			"to": "math_v3",
+			"to_port": 1
+		},
+		{
+			"from": "math_v3",
+			"from_port": 0,
+			"to": "reroute_3",
+			"to_port": 0
+		},
+		{
+			"from": "tones_2",
+			"from_port": 0,
+			"to": "colorize_2",
+			"to_port": 0
+		},
+		{
+			"from": "tones_2",
+			"from_port": 0,
+			"to": "colorize_3",
+			"to_port": 0
+		},
+		{
+			"from": "tones_2",
+			"from_port": 0,
+			"to": "colorize_4",
+			"to_port": 0
+		},
+		{
+			"from": "tones_2",
+			"from_port": 0,
+			"to": "colorize_5",
+			"to_port": 0
+		},
+		{
+			"from": "reroute_4",
+			"from_port": 0,
+			"to": "tones",
+			"to_port": 0
+		},
+		{
+			"from": "tones",
+			"from_port": 0,
+			"to": "blend2_4",
+			"to_port": 0
+		},
+		{
+			"from": "transform2",
+			"from_port": 0,
+			"to": "switch_3",
+			"to_port": 0
+		},
+		{
+			"from": "switch_3",
+			"from_port": 0,
+			"to": "blend2_4",
+			"to_port": 5
+		},
+		{
+			"from": "text",
+			"from_port": 0,
+			"to": "switch_4",
+			"to_port": 0
+		},
+		{
+			"from": "switch_4",
+			"from_port": 0,
+			"to": "blend2_4",
+			"to_port": 7
+		},
+		{
+			"from": "edge_detect",
+			"from_port": 0,
+			"to": "multi_warp",
+			"to_port": 0
+		},
+		{
+			"from": "shard_fbm",
+			"from_port": 0,
+			"to": "multi_warp",
+			"to_port": 1
+		},
+		{
+			"from": "multi_warp",
+			"from_port": 0,
+			"to": "invert_4",
+			"to_port": 0
+		},
+		{
+			"from": "blend2_4",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 0
+		},
+		{
+			"from": "pattern_2",
+			"from_port": 0,
+			"to": "reroute_2",
+			"to_port": 0
+		},
+		{
+			"from": "invert_4",
+			"from_port": 0,
+			"to": "switch_5",
+			"to_port": 0
+		},
+		{
+			"from": "switch_5",
+			"from_port": 0,
+			"to": "blend2_4",
+			"to_port": 9
+		},
+		{
+			"from": "switch_5",
+			"from_port": 1,
+			"to": "blend2_4",
+			"to_port": 11
+		},
+		{
+			"from": "reroute_5",
+			"from_port": 0,
+			"to": "edge_detect",
+			"to_port": 0
+		},
+		{
+			"from": "reroute_5",
+			"from_port": 0,
+			"to": "switch_5",
+			"to_port": 1
+		},
+		{
+			"from": "shape_2",
+			"from_port": 0,
+			"to": "tile2x2",
+			"to_port": 0
+		},
+		{
+			"from": "shape_3",
+			"from_port": 0,
+			"to": "tile2x2",
+			"to_port": 1
+		},
+		{
+			"from": "shape_4",
+			"from_port": 0,
+			"to": "tile2x2",
+			"to_port": 2
+		},
+		{
+			"from": "tile2x2",
+			"from_port": 0,
+			"to": "tile2x2_2",
+			"to_port": 0
+		},
+		{
+			"from": "bricks3_5",
+			"from_port": 0,
+			"to": "transform2_2",
+			"to_port": 0
+		},
+		{
+			"from": "transform2_2",
+			"from_port": 0,
+			"to": "tile2x2",
+			"to_port": 3
+		},
+		{
+			"from": "shape_5",
+			"from_port": 0,
+			"to": "tile2x2_3",
+			"to_port": 0
+		},
+		{
+			"from": "tile2x2_3",
+			"from_port": 0,
+			"to": "tile2x2_2",
+			"to_port": 1
+		},
+		{
+			"from": "shape_6",
+			"from_port": 0,
+			"to": "tile2x2_3",
+			"to_port": 1
+		},
+		{
+			"from": "shape_7",
+			"from_port": 0,
+			"to": "tile2x2_3",
+			"to_port": 2
+		},
+		{
+			"from": "bricks3_6",
+			"from_port": 0,
+			"to": "transform2_3",
+			"to_port": 0
+		},
+		{
+			"from": "transform2_3",
+			"from_port": 0,
+			"to": "tile2x2_3",
+			"to_port": 3
+		},
+		{
+			"from": "bricks3_7",
+			"from_port": 0,
+			"to": "transform2_4",
+			"to_port": 0
+		},
+		{
+			"from": "transform2_4",
+			"from_port": 0,
+			"to": "tile2x2_4",
+			"to_port": 0
+		},
+		{
+			"from": "tile2x2_4",
+			"from_port": 0,
+			"to": "tile2x2_2",
+			"to_port": 2
+		},
+		{
+			"from": "bricks3_8",
+			"from_port": 0,
+			"to": "transform2_5",
+			"to_port": 0
+		},
+		{
+			"from": "transform2_5",
+			"from_port": 0,
+			"to": "tile2x2_4",
+			"to_port": 1
+		},
+		{
+			"from": "sdcircle",
+			"from_port": 0,
+			"to": "custom_tiles",
+			"to_port": 0
+		},
+		{
+			"from": "custom_tiles",
+			"from_port": 0,
+			"to": "transform2_6",
+			"to_port": 0
+		},
+		{
+			"from": "transform2_6",
+			"from_port": 0,
+			"to": "tile2x2_4",
+			"to_port": 3
+		},
+		{
+			"from": "sdcircle_2",
+			"from_port": 0,
+			"to": "custom_tiles_2",
+			"to_port": 0
+		},
+		{
+			"from": "custom_tiles_2",
+			"from_port": 0,
+			"to": "transform2_7",
+			"to_port": 0
+		},
+		{
+			"from": "transform2_7",
+			"from_port": 0,
+			"to": "tile2x2_4",
+			"to_port": 2
+		},
+		{
+			"from": "tile2x2_5",
+			"from_port": 0,
+			"to": "tile2x2_2",
+			"to_port": 3
+		},
+		{
+			"from": "iching",
+			"from_port": 0,
+			"to": "tile2x2_5",
+			"to_port": 0
+		},
+		{
+			"from": "runes",
+			"from_port": 0,
+			"to": "transform2_8",
+			"to_port": 0
+		},
+		{
+			"from": "transform2_8",
+			"from_port": 0,
+			"to": "tile2x2_5",
+			"to_port": 1
+		},
+		{
+			"from": "bricks3_9",
+			"from_port": 0,
+			"to": "transform2_9",
+			"to_port": 0
+		},
+		{
+			"from": "transform2_9",
+			"from_port": 0,
+			"to": "tile2x2_5",
+			"to_port": 2
+		},
+		{
+			"from": "bricks3_10",
+			"from_port": 0,
+			"to": "transform2_10",
+			"to_port": 0
+		},
+		{
+			"from": "transform2_10",
+			"from_port": 0,
+			"to": "tile2x2_5",
+			"to_port": 3
+		},
+		{
+			"from": "shape_8",
+			"from_port": 0,
+			"to": "tiler_2",
+			"to_port": 0
+		},
+		{
+			"from": "tile2x2_6",
+			"from_port": 0,
+			"to": "reroute_5",
+			"to_port": 0
+		},
+		{
+			"from": "tiler_2",
+			"from_port": 0,
+			"to": "transform2_11",
+			"to_port": 0
+		},
+		{
+			"from": "transform2_11",
+			"from_port": 0,
+			"to": "tile2x2_6",
+			"to_port": 0
+		},
+		{
+			"from": "transform2_11",
+			"from_port": 0,
+			"to": "tile2x2_6",
+			"to_port": 1
+		},
+		{
+			"from": "transform2_11",
+			"from_port": 0,
+			"to": "tile2x2_6",
+			"to_port": 2
+		},
+		{
+			"from": "transform2_11",
+			"from_port": 0,
+			"to": "tile2x2_6",
+			"to_port": 3
+		},
+		{
+			"from": "switch_5",
+			"from_port": 1,
+			"to": "math_v3_2",
+			"to_port": 0
+		},
+		{
+			"from": "uniform",
+			"from_port": 0,
+			"to": "math_v3_2",
+			"to_port": 1
+		},
+		{
+			"from": "math_v3_2",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 3
+		},
+		{
+			"from": "colorize_5",
+			"from_port": 0,
+			"to": "reroute_4",
+			"to_port": 0
+		},
+		{
+			"from": "sdarrow",
+			"from_port": 0,
+			"to": "custom_tiles_3",
+			"to_port": 0
+		},
+		{
+			"from": "custom_tiles_3",
+			"from_port": 0,
+			"to": "switch",
+			"to_port": 2
+		}
+	],
+	"label": "Graph",
+	"longdesc": "",
+	"name": "@Node@838",
+	"node_position": {
+		"x": 0.0,
+		"y": 0.0
+	},
+	"nodes": [
+		{
+			"export_last_target": "ChildrenOfKronos",
+			"export_paths": {
+				"ChildrenOfKronos": "E:/Godot Projects/ChildrenKronos/assets/textures/greybox/genisys_prototype_movable"
+			},
+			"name": "Material",
+			"node_position": {
+				"x": 1917.45861816406,
+				"y": -276.057739257812
+			},
+			"parameters": {
+				"albedo_color": {
+					"a": 1.0,
+					"b": 1.0,
+					"g": 1.0,
+					"r": 1.0,
+					"type": "Color"
+				},
+				"ao": 1.0,
+				"depth_scale": 0.5,
+				"emission_energy": 1.0,
+				"flags_transparent": true,
+				"metallic": 0.0,
+				"normal": 1.0,
+				"roughness": 1.0,
+				"size": 8,
+				"sss": 1.0
+			},
+			"seed_int": 0,
+			"type": "material"
+		},
+		{
+			"name": "bricks3",
+			"node_position": {
+				"x": -3329.94995117188,
+				"y": -860.051635742188
+			},
+			"parameters": {
+				"bevel": 0.0,
+				"columns": 2.0,
+				"corner": 0.3,
+				"mortar": 0.0075,
+				"pattern": 0.0,
+				"repeat": 1.0,
+				"round": 0.0,
+				"row_offset": 0.0,
+				"rows": 2.0
+			},
+			"seed_int": 0,
+			"type": "bricks3"
+		},
+		{
+			"name": "pattern",
+			"node_position": {
+				"x": -2320.61499023438,
+				"y": -1030.62634277344
+			},
+			"parameters": {
+				"mix": 4.0,
+				"x_scale": 1.0,
+				"x_wave": 2,
+				"y_scale": 1.0,
+				"y_wave": 2.0
+			},
+			"seed_int": 0,
+			"type": "pattern"
+		},
+		{
+			"name": "invert",
+			"node_position": {
+				"x": -3104.91577148438,
+				"y": -855.158813476562
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"type": "invert"
+		},
+		{
+			"name": "pattern_2",
+			"node_position": {
+				"x": -2319.15087890625,
+				"y": -1169.01574707031
+			},
+			"parameters": {
+				"mix": 4.0,
+				"x_scale": 2.0,
+				"x_wave": 2.0,
+				"y_scale": 2.0,
+				"y_wave": 2.0
+			},
+			"seed_int": 0,
+			"type": "pattern"
+		},
+		{
+			"name": "tones_2",
+			"node_position": {
+				"x": -1801.44934082031,
+				"y": -1329.83251953125
+			},
+			"parameters": {
+				"in_max": {
+					"a": 1.0,
+					"b": 1.0,
+					"g": 1.0,
+					"r": 1.0,
+					"type": "Color"
+				},
+				"in_mid": {
+					"a": 0.5,
+					"b": 0.5,
+					"g": 0.5,
+					"r": 0.5,
+					"type": "Color"
+				},
+				"in_min": {
+					"a": 0.0,
+					"b": 0.0,
+					"g": 0.0,
+					"r": 0.0,
+					"type": "Color"
+				},
+				"out_max": {
+					"a": 1.0,
+					"b": 1.0,
+					"g": 1.0,
+					"r": 1.0,
+					"type": "Color"
+				},
+				"out_min": {
+					"a": 0.0,
+					"b": 0.868125259876251,
+					"g": 0.868125259876251,
+					"r": 0.868125259876251,
+					"type": "Color"
+				}
+			},
+			"seed_int": 0,
+			"type": "tones"
+		},
+		{
+			"name": "reroute",
+			"node_position": {
+				"x": -230.118804931641,
+				"y": -188.2666015625
+			},
+			"parameters": {
+				"preview": 0
+			},
+			"seed_int": 0,
+			"type": "reroute"
+		},
+		{
+			"name": "shape",
+			"node_position": {
+				"x": -2179.4873046875,
+				"y": 261.724945068359
+			},
+			"parameters": {
+				"edge": 0.0,
+				"radius": 0.03,
+				"shape": 1.0,
+				"sides": 4.0
+			},
+			"seed_int": 0,
+			"type": "shape"
+		},
+		{
+			"generic_size": 1,
+			"name": "transform2",
+			"node_position": {
+				"x": -1979.48706054688,
+				"y": 261.724945068359
+			},
+			"parameters": {
+				"mode": 1,
+				"rotate": 0.0,
+				"scale_x": 1.0,
+				"scale_y": 1.0,
+				"translate_x": 0.5,
+				"translate_y": 0.5
+			},
+			"seed_int": 0,
+			"type": "transform2"
+		},
+		{
+			"name": "text",
+			"node_position": {
+				"x": -2124.44262695312,
+				"y": 639.608642578125
+			},
+			"parameters": {
+				"center": false,
+				"font": "C:/Users/Owner/AppData/Local/Microsoft/Windows/Fonts/Adventure Subtitles.ttf",
+				"font_size": 75.0,
+				"text": "GENISYS 256 x 256",
+				"x": -0.47,
+				"y": -0.47
+			},
+			"seed_int": 0,
+			"type": "text"
+		},
+		{
+			"name": "bricks3_2",
+			"node_position": {
+				"x": -3332.84423828125,
+				"y": -584.563110351562
+			},
+			"parameters": {
+				"bevel": 0.0,
+				"columns": 4.0,
+				"corner": 0.3,
+				"mortar": 0.01,
+				"pattern": 0.0,
+				"repeat": 1.0,
+				"round": 0.0,
+				"row_offset": 0.0,
+				"rows": 4.0
+			},
+			"seed_int": 0,
+			"type": "bricks3"
+		},
+		{
+			"name": "bricks3_3",
+			"node_position": {
+				"x": -3338.16796875,
+				"y": -294.405090332031
+			},
+			"parameters": {
+				"bevel": 0.0,
+				"columns": 16.0,
+				"corner": 0.3,
+				"mortar": 0.04,
+				"pattern": 0.0,
+				"repeat": 1.0,
+				"round": 0.0,
+				"row_offset": 0.0,
+				"rows": 16.0
+			},
+			"seed_int": 0,
+			"type": "bricks3"
+		},
+		{
+			"name": "invert_2",
+			"node_position": {
+				"x": -3093.63110351562,
+				"y": -535.268249511719
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"type": "invert"
+		},
+		{
+			"name": "invert_3",
+			"node_position": {
+				"x": -3085.41162109375,
+				"y": -260.307067871094
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"type": "invert"
+		},
+		{
+			"generic_size": 2,
+			"name": "blend2_2",
+			"node_position": {
+				"x": -2720.95141601562,
+				"y": -581.431274414062
+			},
+			"parameters": {
+				"amount1": 0.21,
+				"amount2": 0.11,
+				"blend_type1": 3,
+				"blend_type2": 3
+			},
+			"seed_int": 0,
+			"type": "blend2"
+		},
+		{
+			"name": "colorize",
+			"node_position": {
+				"x": -1500.0,
+				"y": -1340.0
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 2,
+					"points": [
+						{
+							"a": 1.0,
+							"b": 0.21875,
+							"g": 0.21875,
+							"pos": 0.816994936411617,
+							"r": 0.21875
+						},
+						{
+							"a": 1.0,
+							"b": 0.28125,
+							"g": 0.28125,
+							"pos": 0.940340056674171,
+							"r": 0.28125
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"seed_int": 0,
+			"type": "colorize"
+		},
+		{
+			"name": "pattern_3",
+			"node_position": {
+				"x": -2320.61499023438,
+				"y": -1312.23681640625
+			},
+			"parameters": {
+				"mix": 4.0,
+				"x_scale": 4.0,
+				"x_wave": 2,
+				"y_scale": 4.0,
+				"y_wave": 2.0
+			},
+			"seed_int": 0,
+			"type": "pattern"
+		},
+		{
+			"name": "reroute_2",
+			"node_position": {
+				"x": -1976.25476074219,
+				"y": -1132.70544433594
+			},
+			"parameters": {
+				"preview": 0
+			},
+			"seed_int": 0,
+			"type": "reroute"
+		},
+		{
+			"name": "reroute_3",
+			"node_position": {
+				"x": -224.341232299805,
+				"y": -140.064590454102
+			},
+			"parameters": {
+				"preview": 0
+			},
+			"seed_int": 0,
+			"type": "reroute"
+		},
+		{
+			"name": "image",
+			"node_position": {
+				"x": -2174.68530273438,
+				"y": -293.193511962891
+			},
+			"parameters": {
+				"clamp": false,
+				"fix_ar": false,
+				"image": "E:/2026/Tutorials/004 Prototype Textures/icon_monochrome_dark.svg"
+			},
+			"seed_int": 0,
+			"type": "image"
+		},
+		{
+			"name": "tiler",
+			"node_position": {
+				"x": -1957.01623535156,
+				"y": -271.142150878906
+			},
+			"parameters": {
+				"fixed_offset": 0.0,
+				"inputs": 0.0,
+				"offset": 0.0,
+				"overlap": 0.0,
+				"rotate": 0.0,
+				"scale": 0.0,
+				"scale_x": 0.15,
+				"scale_y": 0.15,
+				"tx": 4.0,
+				"ty": 4.0,
+				"value": 0.0,
+				"variations": false
+			},
+			"seed_int": 0,
+			"type": "tiler"
+		},
+		{
+			"color": {
+				"a": 1.0,
+				"b": 0.494117647409439,
+				"g": 0.43529412150383,
+				"r": 0.286274522542953,
+				"type": "Color"
+			},
+			"name": "comment",
+			"node_position": {
+				"x": -3360.16796875,
+				"y": -932.0517578125
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"size": {
+				"x": 877.216796875,
+				"y": 904.646606445312
+			},
+			"text": "",
+			"title": "Lines",
+			"type": "comment"
+		},
+		{
+			"color": {
+				"a": 1.0,
+				"b": 0.494117647409439,
+				"g": 0.43529412150383,
+				"r": 0.286274522542953,
+				"type": "Color"
+			},
+			"name": "comment_2",
+			"node_position": {
+				"x": -2342.61499023438,
+				"y": -1406.52111816406
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"size": {
+				"x": 1050.48986816406,
+				"y": 518.894775390625
+			},
+			"text": "",
+			"title": "Grid pattern",
+			"type": "comment"
+		},
+		{
+			"color": {
+				"a": 1.0,
+				"b": 0.494117647409439,
+				"g": 0.43529412150383,
+				"r": 0.286274522542953,
+				"type": "Color"
+			},
+			"name": "comment_3",
+			"node_position": {
+				"x": -2196.68530273438,
+				"y": -365.193511962891
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"size": {
+				"x": 450.669067382812,
+				"y": 429.051361083984
+			},
+			"text": "",
+			"title": "Image",
+			"type": "comment"
+		},
+		{
+			"color": {
+				"a": 1.0,
+				"b": 0.494117647409439,
+				"g": 0.43529412150383,
+				"r": 0.286274522542953,
+				"type": "Color"
+			},
+			"name": "comment_4",
+			"node_position": {
+				"x": -2201.4873046875,
+				"y": 189.724945068359
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"size": {
+				"x": 427.000122070312,
+				"y": 295.0
+			},
+			"text": "",
+			"title": "Corner shape",
+			"type": "comment"
+		},
+		{
+			"generic_size": 6,
+			"name": "blend2_4",
+			"node_position": {
+				"x": 915.678283691406,
+				"y": -274.838409423828
+			},
+			"parameters": {
+				"amount1": 0.59,
+				"amount2": 0.26,
+				"amount3": 1.0,
+				"amount4": 1.0,
+				"amount5": 0.37,
+				"amount6": 1.0,
+				"blend_type1": 3,
+				"blend_type2": 3,
+				"blend_type3": 3,
+				"blend_type4": 3,
+				"blend_type5": 2,
+				"blend_type6": 12
+			},
+			"seed_int": 0,
+			"type": "blend2"
+		},
+		{
+			"name": "switch",
+			"node_position": {
+				"x": -80.0,
+				"y": -140.0
+			},
+			"parameters": {
+				"choices": 2,
+				"outputs": 2,
+				"source": 1.0
+			},
+			"seed_int": 0,
+			"type": "switch"
+		},
+		{
+			"name": "switch_2",
+			"node_position": {
+				"x": -80.0,
+				"y": -280.0
+			},
+			"parameters": {
+				"choices": 2,
+				"outputs": 2,
+				"source": 0.0
+			},
+			"seed_int": 0,
+			"type": "switch"
+		},
+		{
+			"name": "math_v3",
+			"node_position": {
+				"x": -1413.966796875,
+				"y": -229.923446655273
+			},
+			"parameters": {
+				"clamp": true,
+				"d_in1_x": 0.0,
+				"d_in1_y": 0.0,
+				"d_in1_z": 0.0,
+				"d_in2_x": 0.0,
+				"d_in2_y": 0.0,
+				"d_in2_z": 0.0,
+				"op": 1
+			},
+			"seed_int": 0,
+			"type": "math_v3"
+		},
+		{
+			"name": "reroute_4",
+			"node_position": {
+				"x": -1206.71923828125,
+				"y": -1173.88879394531
+			},
+			"parameters": {
+				"preview": 0
+			},
+			"seed_int": 0,
+			"type": "reroute"
+		},
+		{
+			"name": "colorize_2",
+			"node_position": {
+				"x": -1500.0,
+				"y": -1260.0
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 2,
+					"points": [
+						{
+							"a": 1.0,
+							"b": 0.0,
+							"g": 0.474831521511078,
+							"pos": 0.752999982761063,
+							"r": 0.87109375
+						},
+						{
+							"a": 1.0,
+							"b": 0.0,
+							"g": 0.545098066329956,
+							"pos": 1.0,
+							"r": 1.0
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"seed_int": 0,
+			"type": "colorize"
+		},
+		{
+			"name": "colorize_3",
+			"node_position": {
+				"x": -1500.0,
+				"y": -1180.0
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 2,
+					"points": [
+						{
+							"a": 1.0,
+							"b": 0.69921875,
+							"g": 0.520743846893311,
+							"pos": 0.717758295190243,
+							"r": 0.25128173828125
+						},
+						{
+							"a": 1.0,
+							"b": 0.875,
+							"g": 0.626903533935547,
+							"pos": 0.940340056674171,
+							"r": 0.31787109375
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"seed_int": 0,
+			"type": "colorize"
+		},
+		{
+			"name": "colorize_4",
+			"node_position": {
+				"x": -1500.0,
+				"y": -1100.0
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 0,
+					"points": [
+						{
+							"a": 1.0,
+							"b": 0.103759765625,
+							"g": 0.103759765625,
+							"pos": 0,
+							"r": 0.78125
+						},
+						{
+							"a": 1.0,
+							"b": 0.103759765625,
+							"g": 0.103759765625,
+							"pos": 0.940330056674171,
+							"r": 0.78125
+						},
+						{
+							"a": 1.0,
+							"b": 0.14434814453125,
+							"g": 0.14434814453125,
+							"pos": 0.940350056674171,
+							"r": 0.859375
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"seed_int": 0,
+			"type": "colorize"
+		},
+		{
+			"name": "colorize_5",
+			"node_position": {
+				"x": -1500.0,
+				"y": -1020.00006103516
+			},
+			"parameters": {
+				"gradient": {
+					"interpolation": 0,
+					"points": [
+						{
+							"a": 1.0,
+							"b": 0.0,
+							"g": 0.73828125,
+							"pos": 0,
+							"r": 0.005767822265625
+						},
+						{
+							"a": 1.0,
+							"b": 0.0,
+							"g": 0.73828125,
+							"pos": 0.940330056674171,
+							"r": 0.005767822265625
+						},
+						{
+							"a": 1.0,
+							"b": 0.0,
+							"g": 0.80078125,
+							"pos": 0.940350056674171,
+							"r": 0.006256103515625
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"seed_int": 0,
+			"type": "colorize"
+		},
+		{
+			"name": "tones",
+			"node_position": {
+				"x": -1018.4365234375,
+				"y": -1215.27612304688
+			},
+			"parameters": {
+				"in_max": {
+					"a": 1.0,
+					"b": 1.0,
+					"g": 1.0,
+					"r": 1.0,
+					"type": "Color"
+				},
+				"in_mid": {
+					"a": 0.5,
+					"b": 0.5,
+					"g": 0.5,
+					"r": 0.5,
+					"type": "Color"
+				},
+				"in_min": {
+					"a": 0.0,
+					"b": 0.0,
+					"g": 0.0,
+					"r": 0.0,
+					"type": "Color"
+				},
+				"out_max": {
+					"a": 1.0,
+					"b": 0.871891021728516,
+					"g": 0.871891021728516,
+					"r": 0.871891021728516,
+					"type": "Color"
+				},
+				"out_min": {
+					"a": 0.0,
+					"b": 0.0,
+					"g": 0.0,
+					"r": 0.0,
+					"type": "Color"
+				}
+			},
+			"seed_int": 0,
+			"type": "tones"
+		},
+		{
+			"name": "switch_3",
+			"node_position": {
+				"x": -84.0,
+				"y": -2.00000047683716
+			},
+			"parameters": {
+				"choices": 2,
+				"outputs": 2,
+				"source": 0.0
+			},
+			"seed_int": 0,
+			"type": "switch"
+		},
+		{
+			"name": "switch_4",
+			"node_position": {
+				"x": -79.0,
+				"y": 140.0
+			},
+			"parameters": {
+				"choices": 2,
+				"outputs": 2,
+				"source": 1.0
+			},
+			"seed_int": 0,
+			"type": "switch"
+		},
+		{
+			"name": "bricks3_4",
+			"node_position": {
+				"x": -710.471130371094,
+				"y": 1229.64294433594
+			},
+			"parameters": {
+				"bevel": 0.0,
+				"columns": 4.0,
+				"corner": 0.3,
+				"mortar": 0.06,
+				"pattern": 0.0,
+				"repeat": 1.0,
+				"round": 0.07,
+				"row_offset": 0.0,
+				"rows": 1.0
+			},
+			"seed_int": 0,
+			"type": "bricks3"
+		},
+		{
+			"name": "edge_detect",
+			"node_position": {
+				"x": -237.794281005859,
+				"y": 987.514709472656
+			},
+			"parameters": {
+				"size": 9.0,
+				"threshold": 0.0,
+				"width": 1.0
+			},
+			"seed_int": 0,
+			"type": "edge_detect"
+		},
+		{
+			"name": "invert_4",
+			"node_position": {
+				"x": 253.764663696289,
+				"y": 982.090393066406
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"type": "invert"
+		},
+		{
+			"name": "multi_warp",
+			"node_position": {
+				"x": -3.96542167663574,
+				"y": 985.720458984375
+			},
+			"parameters": {
+				"param0": 10,
+				"param1": 0.462,
+				"param2": 15.0,
+				"param3": 2
+			},
+			"seed_int": 0,
+			"type": "multi_warp"
+		},
+		{
+			"name": "shard_fbm",
+			"node_position": {
+				"x": -275.005554199219,
+				"y": 1141.810546875
+			},
+			"parameters": {
+				"folds": 0.0,
+				"iter": 4.0,
+				"off": 0.0,
+				"per": 0.5,
+				"sharp": 0.7,
+				"sx": 7.0,
+				"sy": 7.0
+			},
+			"seed_int": 0,
+			"type": "shard_fbm"
+		},
+		{
+			"name": "switch_5",
+			"node_position": {
+				"x": 459.605865478516,
+				"y": 568.634033203125
+			},
+			"parameters": {
+				"choices": 2,
+				"outputs": 2,
+				"source": 1.0
+			},
+			"seed_int": 0,
+			"type": "switch"
+		},
+		{
+			"name": "shape_2",
+			"node_position": {
+				"x": -1493.56396484375,
+				"y": 700.065551757812
+			},
+			"parameters": {
+				"edge": 0.14,
+				"radius": 0.66,
+				"shape": 1.0,
+				"sides": 6.0
+			},
+			"seed_int": 0,
+			"type": "shape"
+		},
+		{
+			"name": "shape_3",
+			"node_position": {
+				"x": -1493.90197753906,
+				"y": 841.639953613281
+			},
+			"parameters": {
+				"edge": 0.14,
+				"radius": 0.67,
+				"shape": 1.0,
+				"sides": 4.0
+			},
+			"seed_int": 0,
+			"type": "shape"
+		},
+		{
+			"name": "reroute_5",
+			"node_position": {
+				"x": -476.713592529297,
+				"y": 943.463989257812
+			},
+			"parameters": {
+				"preview": 0
+			},
+			"seed_int": 0,
+			"type": "reroute"
+		},
+		{
+			"name": "tile2x2",
+			"node_position": {
+				"x": -1221.61120605469,
+				"y": 833.083129882812
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"type": "tile2x2"
+		},
+		{
+			"name": "shape_4",
+			"node_position": {
+				"x": -1494.10083007812,
+				"y": 984.414794921875
+			},
+			"parameters": {
+				"edge": 0.14,
+				"radius": 0.67,
+				"shape": 0,
+				"sides": 4.0
+			},
+			"seed_int": 0,
+			"type": "shape"
+		},
+		{
+			"name": "bricks3_5",
+			"node_position": {
+				"x": -1775.44799804688,
+				"y": 1152.7373046875
+			},
+			"parameters": {
+				"bevel": 0.07,
+				"columns": 4.0,
+				"corner": 0.3,
+				"mortar": 0.05,
+				"pattern": 0.0,
+				"repeat": 1.0,
+				"round": 0.07,
+				"row_offset": 0.0,
+				"rows": 4.0
+			},
+			"seed_int": 0,
+			"type": "bricks3"
+		},
+		{
+			"name": "tile2x2_2",
+			"node_position": {
+				"x": -762.559326171875,
+				"y": 1020.62982177734
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"type": "tile2x2"
+		},
+		{
+			"generic_size": 1,
+			"name": "transform2_2",
+			"node_position": {
+				"x": -1563.83239746094,
+				"y": 1146.31164550781
+			},
+			"parameters": {
+				"mode": 0.0,
+				"rotate": 0.0,
+				"scale_x": 0.9,
+				"scale_y": 0.9,
+				"translate_x": 0.0,
+				"translate_y": 0.0
+			},
+			"seed_int": 0,
+			"type": "transform2"
+		},
+		{
+			"name": "tile2x2_3",
+			"node_position": {
+				"x": -1237.84790039062,
+				"y": 1471.59191894531
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"type": "tile2x2"
+		},
+		{
+			"name": "shape_5",
+			"node_position": {
+				"x": -1712.03125,
+				"y": 1452.74133300781
+			},
+			"parameters": {
+				"edge": 0.14,
+				"radius": 0.33,
+				"shape": 1.0,
+				"sides": 4.0
+			},
+			"seed_int": 0,
+			"type": "shape"
+		},
+		{
+			"name": "shape_6",
+			"node_position": {
+				"x": -1695.74963378906,
+				"y": 1617.46276855469
+			},
+			"parameters": {
+				"edge": 0.14,
+				"radius": 0.33,
+				"shape": 1.0,
+				"sides": 6.0
+			},
+			"seed_int": 0,
+			"type": "shape"
+		},
+		{
+			"name": "shape_7",
+			"node_position": {
+				"x": -1706.26794433594,
+				"y": 1796.27575683594
+			},
+			"parameters": {
+				"edge": 0.14,
+				"radius": 0.36,
+				"shape": 0,
+				"sides": 4.0
+			},
+			"seed_int": 0,
+			"type": "shape"
+		},
+		{
+			"generic_size": 1,
+			"name": "transform2_3",
+			"node_position": {
+				"x": -1720.34631347656,
+				"y": 1975.22692871094
+			},
+			"parameters": {
+				"mode": 0.0,
+				"rotate": 0.0,
+				"scale_x": 0.9,
+				"scale_y": 0.9,
+				"translate_x": 0.0,
+				"translate_y": 0.0
+			},
+			"seed_int": 0,
+			"type": "transform2"
+		},
+		{
+			"name": "bricks3_6",
+			"node_position": {
+				"x": -1931.9619140625,
+				"y": 1981.65258789062
+			},
+			"parameters": {
+				"bevel": 0.07,
+				"columns": 2.0,
+				"corner": 0.3,
+				"mortar": 0.05,
+				"pattern": 0.0,
+				"repeat": 1.0,
+				"round": 0.07,
+				"row_offset": 0.0,
+				"rows": 2.0
+			},
+			"seed_int": 0,
+			"type": "bricks3"
+		},
+		{
+			"name": "tile2x2_4",
+			"node_position": {
+				"x": -1209.65368652344,
+				"y": 2314.43969726562
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"type": "tile2x2"
+		},
+		{
+			"name": "bricks3_7",
+			"node_position": {
+				"x": -1985.76171875,
+				"y": 2272.05249023438
+			},
+			"parameters": {
+				"bevel": 0.07,
+				"columns": 4.0,
+				"corner": 0.3,
+				"mortar": 0.05,
+				"pattern": 0.0,
+				"repeat": 1.0,
+				"round": 0.07,
+				"row_offset": 0.0,
+				"rows": 1.0
+			},
+			"seed_int": 0,
+			"type": "bricks3"
+		},
+		{
+			"generic_size": 1,
+			"name": "transform2_4",
+			"node_position": {
+				"x": -1744.09362792969,
+				"y": 2267.88061523438
+			},
+			"parameters": {
+				"mode": 0.0,
+				"rotate": 0.0,
+				"scale_x": 0.9,
+				"scale_y": 0.9,
+				"translate_x": 0.0,
+				"translate_y": 0.0
+			},
+			"seed_int": 0,
+			"type": "transform2"
+		},
+		{
+			"name": "bricks3_8",
+			"node_position": {
+				"x": -1975.16333007812,
+				"y": 2545.31713867188
+			},
+			"parameters": {
+				"bevel": 0.07,
+				"columns": 2.0,
+				"corner": 0.3,
+				"mortar": 0.05,
+				"pattern": 0,
+				"repeat": 1.0,
+				"round": 0.1,
+				"row_offset": 0.0,
+				"rows": 2.0
+			},
+			"seed_int": 0,
+			"type": "bricks3"
+		},
+		{
+			"generic_size": 1,
+			"name": "transform2_5",
+			"node_position": {
+				"x": -1745.94018554688,
+				"y": 2552.14526367188
+			},
+			"parameters": {
+				"mode": 0.0,
+				"rotate": 0.0,
+				"scale_x": 0.45,
+				"scale_y": 0.45,
+				"translate_x": 0.0,
+				"translate_y": 0.0
+			},
+			"seed_int": 0,
+			"type": "transform2"
+		},
+		{
+			"name": "custom_tiles",
+			"node_position": {
+				"x": -1808.81896972656,
+				"y": 2844.54418945312
+			},
+			"parameters": {
+				"bevel": 0.1,
+				"columns": 4.0,
+				"mirror": false,
+				"mortar": 0.05,
+				"row_offset": 0.0,
+				"rows": 4.0
+			},
+			"seed_int": 0,
+			"type": "custom_tiles"
+		},
+		{
+			"name": "sdcircle",
+			"node_position": {
+				"x": -2005.64770507812,
+				"y": 2862.5546875
+			},
+			"parameters": {
+				"cx": 0.0,
+				"cy": 0.0,
+				"r": 0.4
+			},
+			"seed_int": 0,
+			"type": "sdcircle"
+		},
+		{
+			"generic_size": 1,
+			"name": "transform2_6",
+			"node_position": {
+				"x": -1553.21142578125,
+				"y": 2819.92724609375
+			},
+			"parameters": {
+				"mode": 0.0,
+				"rotate": 0.0,
+				"scale_x": 0.45,
+				"scale_y": 0.45,
+				"translate_x": 0.0,
+				"translate_y": 0.0
+			},
+			"seed_int": 0,
+			"type": "transform2"
+		},
+		{
+			"name": "custom_tiles_2",
+			"node_position": {
+				"x": -1823.81213378906,
+				"y": 3110.22631835938
+			},
+			"parameters": {
+				"bevel": 0.1,
+				"columns": 4.0,
+				"mirror": false,
+				"mortar": 0.05,
+				"row_offset": 0.0,
+				"rows": 4.0
+			},
+			"seed_int": 0,
+			"type": "custom_tiles"
+		},
+		{
+			"generic_size": 1,
+			"name": "transform2_7",
+			"node_position": {
+				"x": -1568.20471191406,
+				"y": 3085.609375
+			},
+			"parameters": {
+				"mode": 0.0,
+				"rotate": 0.0,
+				"scale_x": 0.9,
+				"scale_y": 0.9,
+				"translate_x": 0.0,
+				"translate_y": 0.0
+			},
+			"seed_int": 0,
+			"type": "transform2"
+		},
+		{
+			"name": "sdcircle_2",
+			"node_position": {
+				"x": -2020.64111328125,
+				"y": 3128.23681640625
+			},
+			"parameters": {
+				"cx": 0.0,
+				"cy": 0.0,
+				"r": 0.4
+			},
+			"seed_int": 0,
+			"type": "sdcircle"
+		},
+		{
+			"name": "tile2x2_5",
+			"node_position": {
+				"x": -1201.2119140625,
+				"y": 3383.16088867188
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"type": "tile2x2"
+		},
+		{
+			"name": "iching",
+			"node_position": {
+				"x": -2049.28076171875,
+				"y": 3383.22802734375
+			},
+			"parameters": {
+				"columns": 1.0,
+				"rows": 1.0
+			},
+			"seed_int": 1196697600,
+			"type": "iching"
+		},
+		{
+			"name": "runes",
+			"node_position": {
+				"x": -2031.73571777344,
+				"y": 3546.578125
+			},
+			"parameters": {
+				"columns": 4.0,
+				"rows": 4.0
+			},
+			"seed_int": 2853557248,
+			"type": "runes"
+		},
+		{
+			"generic_size": 1,
+			"name": "transform2_8",
+			"node_position": {
+				"x": -1813.33068847656,
+				"y": 3487.2880859375
+			},
+			"parameters": {
+				"mode": 0.0,
+				"rotate": 0.0,
+				"scale_x": 0.9,
+				"scale_y": 0.9,
+				"translate_x": 0.0,
+				"translate_y": 0.0
+			},
+			"seed_int": 0,
+			"type": "transform2"
+		},
+		{
+			"generic_size": 1,
+			"name": "transform2_9",
+			"node_position": {
+				"x": -1779.68591308594,
+				"y": 3822.18139648438
+			},
+			"parameters": {
+				"mode": 0.0,
+				"rotate": 0.0,
+				"scale_x": 0.45,
+				"scale_y": 0.45,
+				"translate_x": 0.0,
+				"translate_y": 0.0
+			},
+			"seed_int": 0,
+			"type": "transform2"
+		},
+		{
+			"name": "bricks3_9",
+			"node_position": {
+				"x": -2008.9091796875,
+				"y": 3815.353515625
+			},
+			"parameters": {
+				"bevel": 0.07,
+				"columns": 2.0,
+				"corner": 0.3,
+				"mortar": 0.14,
+				"pattern": 0,
+				"repeat": 1.0,
+				"round": 0.1,
+				"row_offset": 0.0,
+				"rows": 2.0
+			},
+			"seed_int": 0,
+			"type": "bricks3"
+		},
+		{
+			"generic_size": 1,
+			"name": "transform2_10",
+			"node_position": {
+				"x": -1794.32690429688,
+				"y": 4134.7666015625
+			},
+			"parameters": {
+				"mode": 0.0,
+				"rotate": 0.0,
+				"scale_x": 0.45,
+				"scale_y": 0.45,
+				"translate_x": 0.0,
+				"translate_y": 0.0
+			},
+			"seed_int": 0,
+			"type": "transform2"
+		},
+		{
+			"name": "bricks3_10",
+			"node_position": {
+				"x": -2023.55017089844,
+				"y": 4127.93896484375
+			},
+			"parameters": {
+				"bevel": 0.07,
+				"columns": 2.0,
+				"corner": 0.3,
+				"mortar": 0.18,
+				"pattern": 0,
+				"repeat": 1.0,
+				"round": 0.32,
+				"row_offset": 0.0,
+				"rows": 2.0
+			},
+			"seed_int": 0,
+			"type": "bricks3"
+		},
+		{
+			"name": "shape_8",
+			"node_position": {
+				"x": -1080.87585449219,
+				"y": 579.877197265625
+			},
+			"parameters": {
+				"edge": 0.14,
+				"radius": 0.67,
+				"shape": 1.0,
+				"sides": 4.0
+			},
+			"seed_int": 0,
+			"type": "shape"
+		},
+		{
+			"name": "tiler_2",
+			"node_position": {
+				"x": -897.676696777344,
+				"y": 571.392211914062
+			},
+			"parameters": {
+				"fixed_offset": 0.0,
+				"inputs": 0.0,
+				"offset": 0.0,
+				"overlap": 0.0,
+				"rotate": 0.0,
+				"scale": 0.0,
+				"scale_x": 0.1,
+				"scale_y": 0.1,
+				"tx": 8.0,
+				"ty": 8.0,
+				"value": 0.0,
+				"variations": false
+			},
+			"seed_int": 0,
+			"type": "tiler"
+		},
+		{
+			"name": "tile2x2_6",
+			"node_position": {
+				"x": -331.826873779297,
+				"y": 647.876647949219
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"type": "tile2x2"
+		},
+		{
+			"generic_size": 1,
+			"name": "transform2_11",
+			"node_position": {
+				"x": -580.483276367188,
+				"y": 525.692016601562
+			},
+			"parameters": {
+				"mode": 0.0,
+				"rotate": 0.0,
+				"scale_x": 0.8,
+				"scale_y": 0.8,
+				"translate_x": 0.0,
+				"translate_y": 0.0
+			},
+			"seed_int": 0,
+			"type": "transform2"
+		},
+		{
+			"name": "math_v3_2",
+			"node_position": {
+				"x": 1132.99523925781,
+				"y": 413.796569824219
+			},
+			"parameters": {
+				"clamp": false,
+				"d_in1_x": 0.0,
+				"d_in1_y": 0.0,
+				"d_in1_z": 0.0,
+				"d_in2_x": 0.0,
+				"d_in2_y": 0.0,
+				"d_in2_z": 0.0,
+				"op": 2
+			},
+			"seed_int": 0,
+			"type": "math_v3"
+		},
+		{
+			"name": "uniform",
+			"node_position": {
+				"x": 877.157836914062,
+				"y": 620.117065429688
+			},
+			"parameters": {
+				"color": {
+					"a": 1.0,
+					"b": 1.0,
+					"g": 0.415686011314392,
+					"r": 0.0,
+					"type": "Color"
+				}
+			},
+			"seed_int": 0,
+			"type": "uniform"
+		},
+		{
+			"name": "sdarrow",
+			"node_position": {
+				"x": -1293.06127929688,
+				"y": -13.016975402832
+			},
+			"parameters": {
+				"ax": 0.0,
+				"ay": -0.3,
+				"bx": 0.0,
+				"by": 0.3,
+				"k": 0.43,
+				"wh": 0.19,
+				"wt": 0.09
+			},
+			"seed_int": 0,
+			"type": "sdarrow"
+		},
+		{
+			"name": "custom_tiles_3",
+			"node_position": {
+				"x": -1015.59124755859,
+				"y": -80.7770385742188
+			},
+			"parameters": {
+				"bevel": 0.04,
+				"columns": 8.0,
+				"mirror": false,
+				"mortar": 0.0,
+				"row_offset": 0.0,
+				"rows": 8.0
+			},
+			"seed_int": 0,
+			"type": "custom_tiles"
+		}
+	],
+	"parameters": {
+
+	},
+	"seed_int": 0,
+	"shortdesc": "",
+	"type": "graph"
+}

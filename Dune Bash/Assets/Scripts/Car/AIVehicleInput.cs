@@ -23,7 +23,6 @@ using UnityEditor;
 /// boost/handbrake yet. On a fork (multiple Next Checkpoints) it always takes index 0 - the same
 /// approximation already accepted in LapTracker.SegmentProgress/GetLookaheadPoint, not a new one.
 /// </summary>
-[RequireComponent(typeof(VehicleDriveTrain))]
 [RequireComponent(typeof(LapTracker))]
 public class AIVehicleInput : MonoBehaviour
 {
@@ -77,7 +76,7 @@ public class AIVehicleInput : MonoBehaviour
 
     static readonly float[] DirectionAngles = { -90f, -67.5f, -45f, -22.5f, 0f, 22.5f, 45f, 67.5f, 90f };
 
-    VehicleDriveTrain driveTrain;
+    IVehicleDriveTrain driveTrain;
     LapTracker lapTracker;
     float laneOffset;
     float tieBreakBias;
@@ -107,7 +106,7 @@ public class AIVehicleInput : MonoBehaviour
 
     void Awake()
     {
-        driveTrain = GetComponent<VehicleDriveTrain>();
+        driveTrain = GetComponent<IVehicleDriveTrain>();
         lapTracker = GetComponent<LapTracker>();
         laneOffset = Random.Range(-laneOffsetRange, laneOffsetRange);
         tieBreakBias = Random.value < 0.5f ? -1f : 1f;
@@ -280,8 +279,8 @@ public class AIVehicleInput : MonoBehaviour
             Vector3 origin = transform.position + up + direction * selfClearanceRadius;
             if (!Physics.Raycast(origin, direction, out RaycastHit hit, rayDistance, obstacleLayerMask, QueryTriggerInteraction.Ignore)) continue;
 
-            VehicleDriveTrain otherDriveTrain = hit.collider.GetComponentInParent<VehicleDriveTrain>();
-            bool isCar = otherDriveTrain != null && otherDriveTrain != driveTrain;
+            IVehicleDriveTrain otherDriveTrain = hit.collider.GetComponentInParent<IVehicleDriveTrain>();
+            bool isCar = otherDriveTrain != null && !ReferenceEquals(otherDriveTrain, driveTrain);
             bool isAhead = Mathf.Abs(DirectionAngles[i]) < aheadAngleThreshold;
 
             if (isCar)
@@ -374,7 +373,7 @@ public class AIVehicleInput : MonoBehaviour
     /// </summary>
     void OnDrawGizmos()
     {
-        VehicleDriveTrain dt = driveTrain != null ? driveTrain : GetComponent<VehicleDriveTrain>();
+        IVehicleDriveTrain dt = driveTrain != null ? driveTrain : GetComponent<IVehicleDriveTrain>();
         LapTracker tracker = lapTracker != null ? lapTracker : GetComponent<LapTracker>();
         if (dt == null || tracker == null) return;
 

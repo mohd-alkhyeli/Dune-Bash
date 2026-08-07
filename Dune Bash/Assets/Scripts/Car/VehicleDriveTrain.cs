@@ -9,7 +9,7 @@ using UnityEditor;
 /// controlling the vehicle (PlayerVehicleInput today, an AI driver later).
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
-public class VehicleDriveTrain : MonoBehaviour
+public class VehicleDriveTrain : MonoBehaviour, IVehicleDriveTrain
 {
     [Header("Drive")]
     [Tooltip("Motor torque (Nm) applied to each wheel at full throttle.")]
